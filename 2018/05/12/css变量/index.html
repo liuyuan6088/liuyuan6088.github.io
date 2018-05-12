@@ -82,18 +82,18 @@
 
 
 
-<meta name="description" content="css奇淫技巧–变量          span {            position: relative;        } button {     position: relative;     appearance: none;     background: #f72359;     padding: 30px 40px;     border: none;     color:">
+<meta name="description" content="css奇淫技巧–变量hover me hhhhhhhhhhhhhhhhhhhhhhhh">
 <meta name="keywords" content="css">
 <meta property="og:type" content="article">
 <meta property="og:title" content="css奇淫技巧--变量">
 <meta property="og:url" content="http://yoursite.com/2018/05/12/css变量/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="css奇淫技巧–变量          span {            position: relative;        } button {     position: relative;     appearance: none;     background: #f72359;     padding: 30px 40px;     border: none;     color:">
+<meta property="og:description" content="css奇淫技巧–变量hover me hhhhhhhhhhhhhhhhhhhhhhhh">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-12T16:03:41.560Z">
+<meta property="og:updated_time" content="2018-05-12T16:08:23.253Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="css奇淫技巧--变量">
-<meta name="twitter:description" content="css奇淫技巧–变量          span {            position: relative;        } button {     position: relative;     appearance: none;     background: #f72359;     padding: 30px 40px;     border: none;     color:">
+<meta name="twitter:description" content="css奇淫技巧–变量hover me hhhhhhhhhhhhhhhhhhhhhhhh">
 
 
 
@@ -355,52 +355,10 @@
       
 
       
-        <h2 id="css奇淫技巧–变量"><a href="#css奇淫技巧–变量" class="headerlink" title="css奇淫技巧–变量"></a>css奇淫技巧–变量</h2><p><meta charset="utf-8"></p>
-<p><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"></p>
-<p><style><br>        span {<br>            position: relative;<br>        }</p>
-<pre><code>button {
-    position: relative;
-    appearance: none;
-    background: #f72359;
-    padding: 30px 40px;
-    border: none;
-    color: #fff;
-    font-size: 14px;
-    cursor: pointer;
-    outline: none;
-    overflow: hidden;
-    border-radius: 50px;
-}
+        <link rel="stylesheet" href="css/css1.css">
 
-button::before {
-    --size: 0;
-    content: &apos;&apos;;
-    position: absolute;
-    left: var(--x);
-    top: var(--y);
-    width: var(--size);
-    height: var(--size);
-    background: radial-gradient(circle closest-side, #4405f7, transparent);
-    transform: translate(-50%, -50%);
-    transition: width .2s ease, height .2s ease;
-}
-
-button:hover::before {
-    --size: 400px;
-}
-</code></pre><p>  </style></p>
-<p><button><span>hover me hhhhhhhhhhhhhhhhhhhhhhhh</span></button></p>
-<script>
-        document.querySelector('button').onmousemove = (e) => {
-
-            const x = e.pageX - e.target.offsetLeft
-            const y = e.pageY - e.target.offsetTop
-
-            e.target.style.setProperty('--x', `${ x }px`)
-            e.target.style.setProperty('--y', `${ y }px`)
-
-        }
-</script>
+<h2 id="css奇淫技巧–变量"><a href="#css奇淫技巧–变量" class="headerlink" title="css奇淫技巧–变量"></a>css奇淫技巧–变量</h2><p><button><span>hover me hhhhhhhhhhhhhhhhhhhhhhhh</span></button></p>
+<script src="js/css1.js"></script>
       
     </div>
     
@@ -439,6 +397,10 @@ button:hover::before {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/13/css/css1/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -519,7 +481,7 @@ button:hover::before {
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
