@@ -91,7 +91,7 @@
 <meta property="og:description" content="##电商放大镜demo  不久前做了一个电商网站的demo，其中自己写了个基于原生js的放大镜demo，大致的需求是：鼠标放到小盒子上，让大盒子里面的图片和小盒子的图片同步等比例移动 html结构： &amp;lt;div class=&amp;quot;goods-info-message-l-l fl&amp;quot;&amp;gt;     &amp;lt;div id=&amp;quot;small-Img&amp;quot;&amp;gt;">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/05/11/电商放大镜demo/5121.png">
-<meta property="og:updated_time" content="2018-05-12T05:51:25.518Z">
+<meta property="og:updated_time" content="2018-05-12T05:59:14.530Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="电商放大镜demo">
 <meta name="twitter:description" content="##电商放大镜demo  不久前做了一个电商网站的demo，其中自己写了个基于原生js的放大镜demo，大致的需求是：鼠标放到小盒子上，让大盒子里面的图片和小盒子的图片同步等比例移动 html结构： &amp;lt;div class=&amp;quot;goods-info-message-l-l fl&amp;quot;&amp;gt;     &amp;lt;div id=&amp;quot;small-Img&amp;quot;&amp;gt;">
@@ -382,15 +382,17 @@
 <p>js代码，基于jq获取DOM节点：</p>
 <p>1.获取相关元素：</p>
 <pre><code>var small = $(&quot;#small-Img&quot;)[0];
-</code></pre><p>var bigImg = $(“#magnifier&gt;img”)[0];<br>    var maskly = $(“.goods-info-mask”)[0];<br>var box = $(“.goods-info-message-l-l”)[0];</p>
-<p>2.绑定事件，鼠标放上去显示大盒子，移开隐藏大盒子。</p>
+var bigImg = $(&quot;#magnifier&gt;img&quot;)[0];
+var maskly = $(&quot;.goods-info-mask&quot;)[0];
+var box = $(&quot;.goods-info-message-l-l&quot;)[0];
+</code></pre><p>2.绑定事件，鼠标放上去显示大盒子，移开隐藏大盒子。</p>
 <pre><code>small.onmouseenter = function () {
     $(&quot;.goods-info-mask&quot;).show();
-$(&quot;#magnifier&quot;).show();
+    $(&quot;#magnifier&quot;).show();
 }
 small.onmouseleave = function () {
     $(&quot;.goods-info-mask&quot;).hide();
-$(&quot;#magnifier&quot;).hide();
+    $(&quot;#magnifier&quot;).hide();
 }
 </code></pre><p>3.实现功能，移动鼠标盒子，大盒子图片等比例移动</p>
 <p>绑定的事件是onmousemove，而事件源是small(只要在小盒子上移动1像素，黄盒子也要跟随)</p>
@@ -433,9 +435,9 @@ $(&quot;#magnifier&quot;).hide();
 
 //最后写个图片切换的点击事件
 $(&quot;#goods-info-smallImg&quot;).on(&quot;click&quot;,&quot;li&quot;, function () {
-$(this).addClass(&quot;goods-info-curren&quot;).siblings(&quot;li&quot;).removeClass(&quot;goods-info-curren&quot;);
-$(&quot;#goods-info-bigImg&quot;).attr(&quot;src&quot;,$(this).find(&quot;img&quot;).attr(&quot;src&quot;));
-$(&quot;#magnifier img&quot;).attr(&quot;src&quot;,$(this).find(&quot;img&quot;).attr(&quot;src&quot;));
+    $(this).addClass(&quot;goods-info-curren&quot;).siblings(&quot;li&quot;).removeClass(&quot;goods-info-curren&quot;);
+    $(&quot;#goods-info-bigImg&quot;).attr(&quot;src&quot;,$(this).find(&quot;img&quot;).attr(&quot;src&quot;));
+    $(&quot;#magnifier img&quot;).attr(&quot;src&quot;,$(this).find(&quot;img&quot;).attr(&quot;src&quot;));
 })
 </code></pre><p>总结：原理挺简单的，没事的时候谢谢小demo，练习下^_^</p>
 
