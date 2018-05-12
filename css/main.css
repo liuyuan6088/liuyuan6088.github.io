@@ -1823,7 +1823,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #4d24ff;
+  background: #a6ff4a;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2990,4 +2990,39 @@ pre .javascript .function {
   .post-body {
     text-align: justify;
   }
+}
+.btnly span {
+  position: relative;
+}
+.btnly {
+  position: relative;
+  appearance: none;
+  background: #f72359;
+  padding: 30px 40px;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  border-radius: 50px;
+}
+.btnly::before {
+  --size: 0;
+  content: '';
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(circle closest-side, #4405f7, transparent);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease;
+}
+.btnly:hover::before {
+  --size: 400px;
 }
