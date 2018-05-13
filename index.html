@@ -1064,7 +1064,7 @@ $(&quot;#goods-info-smallImg&quot;).on(&quot;click&quot;,&quot;li&quot;, functio
 <p>之后在开发中，会出现post请求跨域失败，报错是403，服务器拒绝访问。。。。。但get请求没问题<br>最后更改了cors跨域的配置代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">myapp.all(&apos;*&apos;, function(req, res, next) &#123;</span><br><span class="line">    res.header(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);</span><br><span class="line">    res.header(&quot;Access-Control-Allow-Headers&quot;, &quot;X-Requested-With,X_Requested_With,Content-Type&quot;);</span><br><span class="line">    res.header(&quot;Content-Type&quot;, &quot;application/json;charset=utf-8&quot;);</span><br><span class="line">    next();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>就好了！<br>请教了一位后台开发人员，他说是之前的配置没有兼容全，使用兼容全的代码即可 </p>
-<h3 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h3><p>由于浏览器同源策略，凡是发送请求url的协议、域名、端口三者之间任意一与当前页面地址不同即为跨域。具体可以查看下表：<br><img src="/2018/05/09/node后台cors跨域post请求失败/电商放大镜demo/1111.png" alt="你想输入的替代文字"><br>跨域一般常采用以下三种方式</p>
+<h3 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h3><p>由于浏览器同源策略，凡是发送请求url的协议、域名、端口三者之间任意一与当前页面地址不同即为跨域。具体可以查看下表：<br><img src="/2018/05/09/node后台cors跨域post请求失败/1111.png" alt="你想输入的替代文字"><br>跨域一般常采用以下三种方式</p>
 <h4 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h4><p>通常为了减轻web服务器的负载，我们把js、css，img等静态资源分离到另一台独立域名的服务器上，在html页面中再通过相应的标签从不同域名下加载静态资源，而被浏览器允许，基于此原理，我们可以通过动态创建script，再请求一个带参网址实现跨域通信。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    var script = document.createElement(&apos;script&apos;);</span><br><span class="line">    script.type = &apos;text/javascript&apos;;</span><br><span class="line"></span><br><span class="line">    // 传参并指定回调执行函数为onBack</span><br><span class="line">    script.src = &apos;http://www.domain2.com:8080/login?user=admin&amp;callback=onBack&apos;;</span><br><span class="line">    document.head.appendChild(script);</span><br><span class="line"></span><br><span class="line">    // 回调执行函数</span><br><span class="line">    function onBack(res) &#123;</span><br><span class="line">        alert(JSON.stringify(res));</span><br><span class="line">    &#125;</span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure>
 <h4 id="后台cors跨域"><a href="#后台cors跨域" class="headerlink" title="后台cors跨域"></a>后台cors跨域</h4><p>普通跨域请求：只服务端设置Access-Control-Allow-Origin即可，前端无须设置。<br>带cookie请求：前后端都需要设置字段，另外需注意：所带cookie为跨域请求接口所在域的cookie，而非当前页。<br>目前，所有浏览器都支持该功能(IE8+：IE8/9需要使用XDomainRequest对象来支持CORS）)，CORS也已经成为主流的跨域解决方案。<br>node后台代码示例：</p>
@@ -1223,6 +1223,307 @@ $(&quot;#goods-info-smallImg&quot;).on(&quot;click&quot;,&quot;li&quot;, functio
 <h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>小程序的使用制作其实相对简单，平时没事的时候写写练手，主要是获取数据API比较难找，毕竟想在讲究知识产权，而且数据就等于钱啊，免费的东西不多；还有就是一个好的idea，虽然每天发布的小程序很多，但其中正真的好的，优秀的小程序不多，所以，开发出实用又新颖的作品还是不容易的。</p>
 <p>微信小程序作为轻型应用很有可能会是未来移动互联网应用的主要形式，它的特点是小而快，但它不会替代所有的App，因为微信小程序目的主要还是解决小应用的问题，重点在于灵活、快捷、用完即走。据统计，首批上线的小程序就有三百多家，掀起了一阵热潮，但从趋势上看，小程序目前的活跃度一直在下降，可能的原因有两个：一是入口不容易找到，浪费用户时间；二是一部分用户在尝鲜之后就回归到了原生App，因为原生App的体验可能更加丰富。由此也可以看出，App们在一段时间内还是相对安全的。同时小程序可能会给微信带来一些AppStore的功能，稍微分流一些应用获取方式，但也很难替代App store，原因还是那一点，微信小程序主要还是解决小应用问题。从发展上来看，虽然目前它的热度有所下降，但微信小程序未来的应用空间还是很大的，它的价值也还需要时间的检验。</p>
 
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/30/封装自己的jQuery/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘源">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/30/封装自己的jQuery/" itemprop="url">封装自己的jQuery</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-30T19:47:44+08:00">
+                2018-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="封装自己的jQuery"><a href="#封装自己的jQuery" class="headerlink" title="封装自己的jQuery"></a>封装自己的jQuery</h2><p>jQuery，是个正经的前端开发人员肯定都使用过，曾经到来老夫开发只用jQuery的调侃地步；可后来随着技术不断的更新，特别是MVVM，以数据驱动的理念框架进入前端，从性能和使用来说jQuery越来越显得多余。<br>之前也看过jQuery的源码，但因为个人能力有限，不是很能看懂，不过觉得有一部分还是可以照着写个山寨，也当锻炼js能力，利用平时时间自己尝试写了自己的jQuery$$.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br></pre></td><td class="code"><pre><span class="line">(function (win) &#123;</span><br><span class="line"></span><br><span class="line">    //替换模板 直接使用$$配合原型创造实例</span><br><span class="line">    function MyjQuery(selector)&#123;</span><br><span class="line">        return new MyjQuery.fn.init(selector);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //替换原型 + 核心方法</span><br><span class="line">    MyjQuery.fn = MyjQuery.prototype = &#123;</span><br><span class="line">        //替换后更新构造指向</span><br><span class="line">        constructor: MyjQuery,</span><br><span class="line">        //默认长度</span><br><span class="line">        length : 0,</span><br><span class="line">        //索引获取DOM</span><br><span class="line">        get: function (index) &#123;</span><br><span class="line">            if(typeof index !== &quot;number&quot;)&#123;</span><br><span class="line">                throw &quot;传个数字&quot;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                if(index&gt;=this.length)&#123;</span><br><span class="line">                    throw &quot;你再好好数一数？&quot;;</span><br><span class="line">                &#125;else if(index&lt;0)&#123;</span><br><span class="line">                    index = 0;</span><br><span class="line">                    return this[index];</span><br><span class="line">                &#125;else &#123;</span><br><span class="line">                    return this[index];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        //索引获取$$对象</span><br><span class="line">        eq: function (index) &#123;</span><br><span class="line">            if(typeof index !== &quot;number&quot;)&#123;</span><br><span class="line">                throw &quot;传个数字&quot;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                let iii;</span><br><span class="line">                if(index&gt;=this.length)&#123;</span><br><span class="line">                    throw &quot;你再好好数一数？&quot;;</span><br><span class="line">                &#125;else if(index&lt;0)&#123;</span><br><span class="line">                    index = 0;</span><br><span class="line">                    iii = new MyjQuery.fn.init();</span><br><span class="line">                    [].push.call(iii,this[index]);</span><br><span class="line">                    return iii;</span><br><span class="line">                &#125;else &#123;</span><br><span class="line">                    iii = new MyjQuery.fn.init();</span><br><span class="line">                    [].push.call(iii,this[index]);</span><br><span class="line">                    return iii;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        //h循环DOM</span><br><span class="line">        each: function (fn) &#123;</span><br><span class="line">            for(var i=0;i&lt;this.length;i++)&#123;</span><br><span class="line">                //console.log(this[i]);</span><br><span class="line">                //改变this指向  传递索引和DOM  判断是否中断</span><br><span class="line">                if ( fn.call(this[i],i,this[i]) === false ) &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        //存取数据</span><br><span class="line">        data: function () &#123;</span><br><span class="line">            if( arguments.length ===1 &amp;&amp; typeof arguments[0] === &quot;string&quot; )&#123;//一个参数 取值</span><br><span class="line">                //console.log(this);</span><br><span class="line">                if(!this[0].getAttribute(arguments[0])) &#123;return undefined;&#125;</span><br><span class="line">                else &#123;return this[0].getAttribute(arguments[0]);&#125;</span><br><span class="line">            &#125;else if(arguments.length ===2 &amp;&amp; typeof arguments[0] === &quot;string&quot;)&#123; //两个参数 赋值</span><br><span class="line">                [].slice.call(this).forEach((dom)=&gt;dom.setAttribute(arguments[0],arguments[1]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //申明新模板</span><br><span class="line">    var init = MyjQuery.fn.init = function (selector) &#123;</span><br><span class="line">        //设置初始值</span><br><span class="line">        //if(selector)&#123;</span><br><span class="line">        //    selector = &quot;&quot;;</span><br><span class="line">        //&#125;</span><br><span class="line">        if( typeof selector === &quot;function&quot; )&#123;</span><br><span class="line">            return window.onload = selector;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            if(/^&lt;.*&gt;$/.test(selector) &amp;&amp; selector.length&gt;=3 )&#123; //判断是否为HTML片段</span><br><span class="line">                // 创建新盒子把DOMpush给实例。</span><br><span class="line">                var newDiv = document.createElement(&apos;div&apos;);</span><br><span class="line">                newDiv.innerHTML = selector;</span><br><span class="line">                [].push.apply(this,newDiv.childNodes);</span><br><span class="line">            &#125;else&#123;//字符串</span><br><span class="line">                try &#123;</span><br><span class="line">                    [].push.apply(this,document.querySelectorAll(selector));  //浏览器支持H5扩展</span><br><span class="line">                &#125;catch(e) &#123;</span><br><span class="line">                    throw &quot;报错了，看看参数，或请你赶紧换个新浏览器再用骄傲的我！或者用....^_^&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 实例访问方法</span><br><span class="line">    init.prototype = MyjQuery.fn;</span><br><span class="line">    //继承扩展</span><br><span class="line">    MyjQuery.fn.extend =MyjQuery.extend = function (obj) &#123;</span><br><span class="line">        for(var k in obj)&#123;</span><br><span class="line">            this[k] = obj[k];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //添加实例方法</span><br><span class="line">    MyjQuery.fn.extend(&#123;</span><br><span class="line">        css: function (name) &#123;</span><br><span class="line">            //报错</span><br><span class="line">            if( arguments.length ===0 )&#123;</span><br><span class="line">                throw &quot;请传至少一个参数&quot;</span><br><span class="line">            &#125;else if(arguments.length ===1)&#123; //一个参数</span><br><span class="line"></span><br><span class="line">                if( typeof arguments[0] === &quot;string&quot; )&#123; //字符串 获取第一个的样式</span><br><span class="line">                    return MyjQuery.getStyle(this[0],name);</span><br><span class="line"></span><br><span class="line">                &#125;else if(typeof arguments[0] === &quot;object&quot;)&#123; //对象 设置样式</span><br><span class="line">                    for( var key in name ) &#123;//循环对象设置</span><br><span class="line">                        for(var i = 0; i&lt;this.length; i++) &#123;</span><br><span class="line">                            this[i][&apos;style&apos;][key] = name[key];</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(arguments.length ===2)&#123; //2个参数</span><br><span class="line">                if(typeof arguments[0] === &quot;string&quot; &amp;&amp; typeof arguments[1] === &quot;string&quot;)&#123;//两个字符串 设置样式</span><br><span class="line">                    for(var i = 0; i&lt;this.length; i++) &#123;</span><br><span class="line">                        this[i][&apos;style&apos;][arguments[0]] = arguments[1];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    throw &quot;想写回调fn？在等等吧&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                throw &quot;就传两个参数吧，别写了&quot;</span><br><span class="line">            &#125;</span><br><span class="line">            //链式编程</span><br><span class="line">            return this;</span><br><span class="line">        &#125;,</span><br><span class="line">        html: function (str) &#123;</span><br><span class="line">            if(arguments.length ===0)&#123;// 0个参数 获取第一个内容</span><br><span class="line">                return this[0].innerHTML;</span><br><span class="line">            &#125;else if(arguments.length ===1)&#123; //1个参数 字符串赋值</span><br><span class="line">                if(typeof arguments[0] === &quot;string&quot;)&#123;</span><br><span class="line">                    [].slice.call(this).forEach(function (dom) &#123;</span><br><span class="line">                        dom.innerHTML = str;</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;else&#123; //类型为fn</span><br><span class="line">                    throw &quot;想写回调fn？在等等吧&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;else&#123; //多参数</span><br><span class="line">                throw &quot;传一个就好&quot;</span><br><span class="line">            &#125;</span><br><span class="line">            // 链式编程</span><br><span class="line">            return this;</span><br><span class="line">        &#125;,</span><br><span class="line">        each: function (fn) &#123;</span><br><span class="line">            for(var i=0;i&lt;this.length;i++)&#123;</span><br><span class="line">                //console.log(this[i]);</span><br><span class="line">                //改变this指向  传递索引和DOM  判断是否中断</span><br><span class="line">                if ( fn.call(this[i],i,this[i]) === false ) &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // 添加静态方法</span><br><span class="line">    MyjQuery.extend(&#123;</span><br><span class="line">        //简单版ajax</span><br><span class="line">        ajax:function(obj)&#123;</span><br><span class="line">            let ajax;</span><br><span class="line">            if(window.XMLHttpRequest)&#123;</span><br><span class="line">                ajax = new XMLHttpRequest();//DOM</span><br><span class="line">            &#125;else if(window.ActiveXObject) &#123;</span><br><span class="line">                ajax = new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);//ie</span><br><span class="line">            &#125;;</span><br><span class="line">            var datastr = &quot;&quot;;</span><br><span class="line">            for(var k in obj.data)&#123;</span><br><span class="line">                datastr += (k+&quot;=&quot;+obj.data[k]+&quot;&amp;&quot;);</span><br><span class="line">            &#125;;</span><br><span class="line">            datastr=datastr.substring(0,datastr.length-1);</span><br><span class="line">            if(obj.method==&quot;get&quot;)&#123;</span><br><span class="line">                if(obj.data)&#123;</span><br><span class="line">                    ajax.open(obj.method,obj.url+&quot;?&quot;+datastr);</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    ajax.open(obj.method,obj.url);</span><br><span class="line">                &#125;</span><br><span class="line">                ajax.send();</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                ajax.open(obj.method,obj.url);</span><br><span class="line">                ajax.setRequestHeader(&quot;Content-type&quot;,&quot;application/x-www-form-urlencoded&quot;);</span><br><span class="line">                if(obj.data)&#123;</span><br><span class="line">                    ajax.send(datastr);</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    ajax.send();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            ajax.onreadystatechange = function () &#123;</span><br><span class="line">                if(ajax.readyState==4 &amp;&amp; ajax.status==200)&#123;</span><br><span class="line">                    if(obj.datatype==&quot;json&quot;)&#123;</span><br><span class="line">                        obj.callback(JSON.parse(ajax.responseText));</span><br><span class="line">                    &#125;else&#123;</span><br><span class="line">                        obj.callback(ajax.responseText);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        // 获取样式</span><br><span class="line">        getStyle: function(dom,style) &#123;</span><br><span class="line">            if( window.getComputedStyle ) &#123;</span><br><span class="line">                return window.getComputedStyle(dom)[style];</span><br><span class="line">            &#125;</span><br><span class="line">            //IE8兼容处理</span><br><span class="line">            else &#123;</span><br><span class="line">                return dom.currentStyle[style];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    win.$$ = win.MyjQuery =MyjQuery;</span><br><span class="line"></span><br><span class="line">&#125;)(window)</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>简单自己梳理下思路：</p>
+<p>首先利用自执行函数封装，把全局window传进去，把自己的jQuery绑定在window上抛出去使用；</p>
+<p>然后用定义init用于替换模板函数，和替换原型</p>
+<p>获取DOM节点直接采用H5的扩展：<code>[].push.apply(this,document.querySelectorAll(selector))</code></p>
+<p>使用MyjQuery.fn.extend()添加实例方法：css，html，each</p>
+<p>使用MyjQuery.extend()添加静态方法：ajax</p>
+<p>仿照正版，在原型上也写了几个核心方法：get，eq，each，data</p>
+<p>其中有几个注意点:jQuery对象是伪数组，需要用apply或者call去借用数组的方法；用户传参不定，用伪数组arguments的长度去判定；要考虑的用户输入情况要全面，并且抛出相应的错误提示。</p>
+<p><strong>2018-03-30 19:55:44—第一次就只写了一部分，后续会利用时间继续完善，在这个过程中学习了很多，特别是对于js高级-原型有个深一步的认识，很快乐^_^</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/21/封装一个简单的缓动动画/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘源">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/21/封装一个简单的缓动动画/" itemprop="url">封装一个简单的缓动动画</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-21T16:17:44+08:00">
+                2018-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="封装一个简单的缓动动画"><a href="#封装一个简单的缓动动画" class="headerlink" title="封装一个简单的缓动动画"></a>封装一个简单的缓动动画</h2><p>利用定时器，采用步长随时间递减，简单封装了一个缓动动画的小功能。<br>大致的需求目标：<br>方法传入3个参数：第一个使用的DOM对象；第二个改变的具体参数属性，以json的方式传入；第三个动画执行后的回调。其中对透明度和层级做特殊处理。</p>
+<h3 id="首先需要解决如何获取任意形式的样式"><a href="#首先需要解决如何获取任意形式的样式" class="headerlink" title="首先需要解决如何获取任意形式的样式"></a>首先需要解决如何获取任意形式的样式</h3><p>因写法和浏览器的不同，一些特殊的样式通常获取不了，所以必选的提前考虑所有情况，并且封装成一个通用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function getStyle(obj,attr) &#123;</span><br><span class="line">    if(obj.currentStyle) &#123;</span><br><span class="line">        //  return  obj.style.left    只能得到行内式的</span><br><span class="line">        // return  obj.currentStyle[&quot;left&quot;];   // 正确的写法，但是left 是传进来的</span><br><span class="line">        return  obj.currentStyle[attr];</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return window.getComputedStyle(obj,null)[attr];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="封装缓动动画"><a href="#封装缓动动画" class="headerlink" title="封装缓动动画"></a>封装缓动动画</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">function animate(obj,json,fn) &#123;</span><br><span class="line">    // 第一参数 动的对象   2  attr  动的那个属性   3   属性值少多少</span><br><span class="line">    clearInterval(obj.timer);</span><br><span class="line">    obj.timer = setInterval(function() &#123;</span><br><span class="line">        var flag = true;  //  用来判断是否停止定时器   定时器的里面</span><br><span class="line">        //  每隔 30 毫秒就要运行一次</span><br><span class="line">        for(var k in json) &#123; </span><br><span class="line">            //  计算步长</span><br><span class="line">            // target 目标位置    leader 不清楚，我们不知道用户改那个属性</span><br><span class="line">            // 检测用户给我们了什么属性，  我们就用这个属性的值 来计算</span><br><span class="line">            // 我们怎么知道用户给我们属性，我们怎么又能得到属性的值呢？</span><br><span class="line">            //  var leader = obj.style[attr];  他只能得到行内式</span><br><span class="line">            var leader = 0;</span><br><span class="line">            // 因为透明度是 小数   取值 0~1 之间    第二个  它没有单位</span><br><span class="line">            if(k == &quot;opacity&quot;) &#123;</span><br><span class="line">                // 先解决小数的问题</span><br><span class="line">                leader =  Math.round(getStyle(obj,k) * 100) || 100;</span><br><span class="line">                // 如果没有opacity  默认当 1 看    1* 100  = 100</span><br><span class="line">                // 我们去过来的是  0.3  但是小数不好计算 我们乘以100   30  好计算</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                leader = parseInt(getStyle(obj,k)) || 0;</span><br><span class="line">                // 他本身有单位 所以要去掉    默认的默认是 0</span><br><span class="line">            &#125;</span><br><span class="line">            //去掉px 的方法   parseInt(25px)   25</span><br><span class="line">            var step = (json[k] - leader) / 10;</span><br><span class="line">            step = step &gt; 0 ? Math.ceil(step) : Math.floor(step);</span><br><span class="line">            leader = leader + step;</span><br><span class="line">            if( k == &quot;opacity&quot;) &#123;   // 记住我们的透明是不加单位的  不要加px</span><br><span class="line">                obj.style.opacity = leader / 100;</span><br><span class="line">//                    opacity: 0.4;</span><br><span class="line">//                    filter: alpha(opacity = 40);     /*不能改只能是 40  不能是 0.4*/</span><br><span class="line">                obj.style.filter = &quot;alpha(opacity = &quot;+leader+&quot;)&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            // 设置层级</span><br><span class="line">            else if(k == &quot;zIndex&quot;) &#123;</span><br><span class="line">                obj.style.zIndex = json[k];    //  直接给值</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                obj.style[k] = leader + &quot;px&quot;;   // 其他的要单位</span><br><span class="line">            &#125;</span><br><span class="line">            if(leader != json[k]) &#123;  //  只要三个属性有一个没有到达，我就取反</span><br><span class="line">                // 这句话要写到 for in 里面   因为有三个属性，所以用 for in 才能遍历</span><br><span class="line">                // 三个都到了 都不执行这句话了</span><br><span class="line">                flag = false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(flag) &#123;</span><br><span class="line">            clearInterval(obj.timer);</span><br><span class="line">            if(fn)&#123;   // 如果有函数传递过来  ， 定时器结束了，说明动画结束  可以执行 回调函数</span><br><span class="line">                fn();   // 执行函数  fn + ();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,30)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="flag开闭原则"><a href="#flag开闭原则" class="headerlink" title="flag开闭原则"></a>flag开闭原则</h4><p>这里，我们设置一个标识符，就是采用开闭原则，每次调用定时器，都清除并重启新定时器，用于判定当前的动画是否执行完毕，只有当动画执行完毕，才执行回调，这样优化性能，保证每次只有一个定时器。</p>
+<h4 id="对透明度和层级单独处理"><a href="#对透明度和层级单独处理" class="headerlink" title="对透明度和层级单独处理"></a>对透明度和层级单独处理</h4><p>其中透明度需要对IE浏览器单独处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if( k == &quot;opacity&quot;) &#123;  </span><br><span class="line">  obj.style.opacity = leader / 100;</span><br><span class="line">  obj.style.filter = &quot;alpha(opacity = &quot;+leader+&quot;)&quot;;</span><br><span class="line">&#125;</span><br><span class="line">else if(k == &quot;zIndex&quot;) &#123;</span><br><span class="line">  obj.style.zIndex = json[k];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这几句代码就是缓动动画的实现<br>step步长设置为属性值和当前值的差除以10，保证step每次都不一样，然后对数值进行处理，再对当前值赋值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var step = (json[k] - leader) / 10;</span><br><span class="line">step = step &gt; 0 ? Math.ceil(step) : Math.floor(step);</span><br><span class="line">leader = leader + step;</span><br></pre></td></tr></table></figure></p>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">animate(DOMObj,&#123;&quot;zIndex&quot;:999,&quot;top&quot;:200,&quot;opacity&quot;:100&#125;, fn)</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1438,7 +1739,7 @@ $(&quot;#goods-info-smallImg&quot;).on(&quot;click&quot;,&quot;li&quot;, functio
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

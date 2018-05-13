@@ -71,7 +71,7 @@
 
 
 
-  <meta name="keywords" content="node,js," />
+  <meta name="keywords" content="js,node," />
 
 
 
@@ -83,19 +83,19 @@
 
 
 <meta name="description" content="node后台cors跨域post请求失败 前言再一次开发中，vue前台+node后台，并且在两个不同的服务下使用node搭建后台时，使用cors跨域，之前在app.js的配置是： 12345678myapp.all(&amp;apos;*&amp;apos;, function (req, res, next) &amp;#123;    res.header(&amp;quot;Access-Control-Allow-Ori">
-<meta name="keywords" content="node,js">
+<meta name="keywords" content="js,node">
 <meta property="og:type" content="article">
 <meta property="og:title" content="node后台cors跨域post请求失败">
 <meta property="og:url" content="http://yoursite.com/2018/05/09/node后台cors跨域post请求失败/index.html">
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="node后台cors跨域post请求失败 前言再一次开发中，vue前台+node后台，并且在两个不同的服务下使用node搭建后台时，使用cors跨域，之前在app.js的配置是： 12345678myapp.all(&amp;apos;*&amp;apos;, function (req, res, next) &amp;#123;    res.header(&amp;quot;Access-Control-Allow-Ori">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/05/09/node后台cors跨域post请求失败/电商放大镜demo/1111.png">
-<meta property="og:updated_time" content="2018-05-13T09:51:08.143Z">
+<meta property="og:image" content="http://yoursite.com/2018/05/09/node后台cors跨域post请求失败/1111.png">
+<meta property="og:updated_time" content="2018-05-13T09:53:55.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="node后台cors跨域post请求失败">
 <meta name="twitter:description" content="node后台cors跨域post请求失败 前言再一次开发中，vue前台+node后台，并且在两个不同的服务下使用node搭建后台时，使用cors跨域，之前在app.js的配置是： 12345678myapp.all(&amp;apos;*&amp;apos;, function (req, res, next) &amp;#123;    res.header(&amp;quot;Access-Control-Allow-Ori">
-<meta name="twitter:image" content="http://yoursite.com/2018/05/09/node后台cors跨域post请求失败/电商放大镜demo/1111.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/05/09/node后台cors跨域post请求失败/1111.png">
 
 
 
@@ -363,7 +363,7 @@
 <p>之后在开发中，会出现post请求跨域失败，报错是403，服务器拒绝访问。。。。。但get请求没问题<br>最后更改了cors跨域的配置代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">myapp.all(&apos;*&apos;, function(req, res, next) &#123;</span><br><span class="line">    res.header(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);</span><br><span class="line">    res.header(&quot;Access-Control-Allow-Headers&quot;, &quot;X-Requested-With,X_Requested_With,Content-Type&quot;);</span><br><span class="line">    res.header(&quot;Content-Type&quot;, &quot;application/json;charset=utf-8&quot;);</span><br><span class="line">    next();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>就好了！<br>请教了一位后台开发人员，他说是之前的配置没有兼容全，使用兼容全的代码即可 </p>
-<h3 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h3><p>由于浏览器同源策略，凡是发送请求url的协议、域名、端口三者之间任意一与当前页面地址不同即为跨域。具体可以查看下表：<br><img src="/2018/05/09/node后台cors跨域post请求失败/电商放大镜demo/1111.png" alt="你想输入的替代文字"><br>跨域一般常采用以下三种方式</p>
+<h3 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h3><p>由于浏览器同源策略，凡是发送请求url的协议、域名、端口三者之间任意一与当前页面地址不同即为跨域。具体可以查看下表：<br><img src="/2018/05/09/node后台cors跨域post请求失败/1111.png" alt="你想输入的替代文字"><br>跨域一般常采用以下三种方式</p>
 <h4 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h4><p>通常为了减轻web服务器的负载，我们把js、css，img等静态资源分离到另一台独立域名的服务器上，在html页面中再通过相应的标签从不同域名下加载静态资源，而被浏览器允许，基于此原理，我们可以通过动态创建script，再请求一个带参网址实现跨域通信。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    var script = document.createElement(&apos;script&apos;);</span><br><span class="line">    script.type = &apos;text/javascript&apos;;</span><br><span class="line"></span><br><span class="line">    // 传参并指定回调执行函数为onBack</span><br><span class="line">    script.src = &apos;http://www.domain2.com:8080/login?user=admin&amp;callback=onBack&apos;;</span><br><span class="line">    document.head.appendChild(script);</span><br><span class="line"></span><br><span class="line">    // 回调执行函数</span><br><span class="line">    function onBack(res) &#123;</span><br><span class="line">        alert(JSON.stringify(res));</span><br><span class="line">    &#125;</span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure>
 <h4 id="后台cors跨域"><a href="#后台cors跨域" class="headerlink" title="后台cors跨域"></a>后台cors跨域</h4><p>普通跨域请求：只服务端设置Access-Control-Allow-Origin即可，前端无须设置。<br>带cookie请求：前后端都需要设置字段，另外需注意：所带cookie为跨域请求接口所在域的cookie，而非当前页。<br>目前，所有浏览器都支持该功能(IE8+：IE8/9需要使用XDomainRequest对象来支持CORS）)，CORS也已经成为主流的跨域解决方案。<br>node后台代码示例：</p>
@@ -386,9 +386,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/node/" rel="tag"><i class="fa fa-tag"></i> node</a>
-          
             <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/node/" rel="tag"><i class="fa fa-tag"></i> node</a>
           
         </div>
       
@@ -494,7 +494,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
