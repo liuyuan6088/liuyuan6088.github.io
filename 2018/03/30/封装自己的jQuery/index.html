@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="封装自己的jQueryjQuery，是个正经的前端开发人员肯定都使用过，曾经到来老夫开发只用jQuery的调侃地步；可后来随着技术不断的更新，特别是MVVM，以数据驱动的理念框架进入前端，从性能和使用来说jQuery越来越显得多余。之前也看过jQuery的源码，但因为个人能力有限，不是很能看懂，不过觉得有一部分还是可以照着写个山寨，也当锻炼js能力，利用平时时间自己尝试写了自己的jQuery$$.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-13T12:04:27.906Z">
+<meta property="og:updated_time" content="2018-05-13T12:08:48.192Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="封装自己的jQuery">
 <meta name="twitter:description" content="封装自己的jQueryjQuery，是个正经的前端开发人员肯定都使用过，曾经到来老夫开发只用jQuery的调侃地步；可后来随着技术不断的更新，特别是MVVM，以数据驱动的理念框架进入前端，从性能和使用来说jQuery越来越显得多余。之前也看过jQuery的源码，但因为个人能力有限，不是很能看懂，不过觉得有一部分还是可以照着写个山寨，也当锻炼js能力，利用平时时间自己尝试写了自己的jQuery$$.">
@@ -360,7 +360,7 @@
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>简单自己梳理下思路：</p>
 <p>首先利用自执行函数封装，把全局window传进去，把自己的jQuery绑定在window上抛出去使用；</p>
 <p>然后用定义init用于替换模板函数，和替换原型</p>
-<p>获取DOM节点直接采用H5的扩展：<code>[].push.apply(this,document.querySelectorAll(selector))</code></p>
+<p>获取DOM节点直接采用H5的扩展：<br><code>[].push.apply(this,document.querySelectorAll(selector))</code></p>
 <p>使用MyjQuery.fn.extend()添加实例方法：css，html，each</p>
 <p>使用MyjQuery.extend()添加静态方法：ajax</p>
 <p>仿照正版，在原型上也写了几个核心方法：get，eq，each，data</p>
@@ -406,8 +406,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/08/robot小程序/" rel="prev" title="聊天机器人小程序">
-                聊天机器人小程序 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/05/封装轮播/" rel="prev" title="封装轮播">
+                封装轮播 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -489,7 +489,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
