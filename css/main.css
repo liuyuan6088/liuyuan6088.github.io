@@ -2134,7 +2134,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #59f7ff;
+  background: #e390fa;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3414,6 +3414,9 @@ pre .javascript .function {
 }
 .links-of-blogroll-list .links-of-blogroll-item {
   display: inline-block;
+}
+.links-of-blogroll-list {
+  text-align: left;
 }
 @-moz-keyframes wobble {
   from {
