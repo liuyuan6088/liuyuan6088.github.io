@@ -264,119 +264,24 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/12/vue图片上传demo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘源">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://p8phnirb4.bkt.clouddn.com/userimg.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="刘源的博客">
-    </span>
-
     
+    
+    <div class="post-block page">
       <header class="post-header">
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">vue图片上传demo</h1>
-        
+	<h1 class="post-title" itemprop="name headline">vue图片上传demo</h1>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T14:47:44+08:00">
-                2018-05-12
-              </time>
-            
 
-            
 
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/05/12/vue图片上传demo/" class="leancloud_visitors" data-flag-title="vue图片上传demo">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
       
-
       
-        <h2 id="vue图片上传demo"><a href="#vue图片上传demo" class="headerlink" title="vue图片上传demo"></a>vue图片上传demo</h2><hr>
+      <div class="post-body">
+        
+        
+          <h2 id="vue图片上传demo"><a href="#vue图片上传demo" class="headerlink" title="vue图片上传demo"></a>vue图片上传demo</h2><hr>
 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>基于vue+elementUI做了个电商的后台管理系统，其中必定会涉及到图片上传的功能；elementUI提供了一套upload组件用于图片上传，但在实际开发中发现挺难用的，官方提供的API说明过于简陋，很多不知所云，因此气急败坏下自己写了个简单的图片上传：<br>大致需求：vue后台管理系统图片上传，至node搭建的服务器，前台能实现图片的修改。</p>
 <h3 id="1-vue"><a href="#1-vue" class="headerlink" title="1.vue"></a>1.vue</h3><p>vue模板代码，使用原生(input type=”file”)标签实现图片上传，因为样式过丑，所以用另一个美化样式div去触发其上传事件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-form-item label=&quot;商品图片&quot;&gt;</span><br><span class="line">  &lt;p style=&quot;color: #606266;padding: 12px 0&quot;&gt;请上传不超过5张图片，图片大小不超过2M&lt;/p&gt;</span><br><span class="line">    &lt;div class=&quot;form-signin-heading&quot; id=&quot;btnUpload&quot; @change=&quot;upload&quot; @click=&quot;lyy&quot;&gt;</span><br><span class="line">        &lt;i class=&quot;el-icon-plus&quot;&gt;&lt;/i&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;input type=&quot;file&quot; name=&quot;avatar&quot; id=&quot;avatar&quot; multiple=&quot;multiple&quot; @change=&quot;upload&quot;&gt;</span><br><span class="line">  &lt;ul style=&quot;overflow: hidden;&quot;&gt;</span><br><span class="line">    &lt;li v-for=&quot;item in photos_url&quot; :key=&apos;item&apos; style=&quot;float:left;margin-right:20px&quot;&gt;</span><br><span class="line">        &lt;img :src=&quot;item&quot; alt=&quot;&quot; style=&quot;width:60px&quot;&gt;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">  &lt;/ul&gt;</span><br><span class="line">&lt;/el-form-item&gt;</span><br></pre></td></tr></table></figure></p>
 <p>书写upload方法，采用FormData对象获取图片资源，并当做参数传递给后台，因为我的vue和node是两个服务，所以这里我采用了node的cors跨域，当然也可以使用反向代理和jsonp。<br>这是我在网上找的cors跨域的代码，直接粘贴在node服务的app.js<br>// cors 跨域<br>myapp.all(‘<em>‘, function (req, res, next) {<br>    res.header(“Access-Control-Allow-Origin”, “</em>“);<br>    res.header(“Access-Control-Allow-Headers”, “X-Requested-With”);<br>    res.header(“Access-Control-Allow-Methods”, “PUT,POST,GET,DELETE,OPTIONS”);<br>    res.header(“X-Powered-By”, ‘ 3.2.1’)<br>    res.header(“Content-Type”, “application/json;charset=utf-8”);<br>    next();<br>});<br>之后我在axios请求成功的回调采用base64格式做图片预览，当然也可以使用FileReader对象进行更多的处理操作，比如图片的删除，上传的进度条之类的</p>
@@ -386,77 +291,15 @@
 <p>upFileController.js：<br>文件是进一步对图片进行处理，并别把图片路径放置数据库，这里如果要传递多个图片，需要使用muilter.array(‘file’, 5)，第二个参数是设置最大的文件数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">var muilter = require(&apos;./upFile.js&apos;);</span><br><span class="line"></span><br><span class="line">var muilterIndex = require(&apos;./upFileIndex.js&apos;);</span><br><span class="line">//multer有single()中的名称必须是表单上传字段的name名称。 </span><br><span class="line">// var upload = muilter.single(&apos;file&apos;);</span><br><span class="line">var upload = muilter.array(&apos;file&apos;, 5);</span><br><span class="line">var uploadIndex = muilterIndex.array(&apos;file&apos;, 3);</span><br><span class="line">function dataInput (req, res) &#123;</span><br><span class="line">  upload(req, res, function (err) &#123;</span><br><span class="line">    //添加错误处理 </span><br><span class="line">    if (err) &#123;</span><br><span class="line">      return console.log(err);</span><br><span class="line">    &#125;</span><br><span class="line">    //文件信息在req.file或者req.files中显示。</span><br><span class="line">    console.log(req.files)</span><br><span class="line">    // photoPath = photoPath.replace(/public/, &quot;&quot;);//将文件路径中的public\去掉，否则会和静态资源配置冲突 </span><br><span class="line">    // //将photoPath存入数据库即可 </span><br><span class="line">    let photoPathArr = [];</span><br><span class="line">    req.files.forEach(ele =&gt; &#123;</span><br><span class="line">      photoPathArr.push(ele.filename)</span><br><span class="line">    &#125;);</span><br><span class="line">    console.log(photoPathArr);</span><br><span class="line">    req.session.photoPathArr = photoPathArr;</span><br><span class="line">    res.send(photoPathArr);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>哇瑟，终于上传图片成功了，不过很多细节还需要做优化^_^</p>
 
+        
+      </div>
+      
+      
       
     </div>
     
     
     
-
-    
-
-    <div>
-  
-    <div>
-    
-        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>小生磕头感谢您的阅读-------------</div>
-    
-</div>
-  
-</div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/05/11/电商放大镜demo/" rel="next" title="电商放大镜demo">
-                <i class="fa fa-chevron-left"></i> 电商放大镜demo
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/12/后台处理图片bs64格式/" rel="prev" title="后台处理图片bs64格式">
-                后台处理图片bs64格式 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 

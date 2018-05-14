@@ -264,119 +264,24 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/21/封装一个简单的缓动动画/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘源">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://p8phnirb4.bkt.clouddn.com/userimg.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="刘源的博客">
-    </span>
-
     
+    
+    <div class="post-block page">
       <header class="post-header">
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">封装一个简单的缓动动画</h1>
-        
+	<h1 class="post-title" itemprop="name headline">封装一个简单的缓动动画</h1>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-21T16:17:44+08:00">
-                2018-03-21
-              </time>
-            
 
-            
 
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/03/21/封装一个简单的缓动动画/" class="leancloud_visitors" data-flag-title="封装一个简单的缓动动画">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
       
-
       
-        <h2 id="封装一个简单的缓动动画"><a href="#封装一个简单的缓动动画" class="headerlink" title="封装一个简单的缓动动画"></a>封装一个简单的缓动动画</h2><p>利用定时器，采用步长随时间递减，简单封装了一个缓动动画的小功能。<br>大致的需求目标：<br>方法传入3个参数：第一个使用的DOM对象；第二个改变的具体参数属性，以json的方式传入；第三个动画执行后的回调。其中对透明度和层级做特殊处理。</p>
+      <div class="post-body">
+        
+        
+          <h2 id="封装一个简单的缓动动画"><a href="#封装一个简单的缓动动画" class="headerlink" title="封装一个简单的缓动动画"></a>封装一个简单的缓动动画</h2><p>利用定时器，采用步长随时间递减，简单封装了一个缓动动画的小功能。<br>大致的需求目标：<br>方法传入3个参数：第一个使用的DOM对象；第二个改变的具体参数属性，以json的方式传入；第三个动画执行后的回调。其中对透明度和层级做特殊处理。</p>
 <h3 id="首先需要解决如何获取任意形式的样式"><a href="#首先需要解决如何获取任意形式的样式" class="headerlink" title="首先需要解决如何获取任意形式的样式"></a>首先需要解决如何获取任意形式的样式</h3><p>因写法和浏览器的不同，一些特殊的样式通常获取不了，所以必选的提前考虑所有情况，并且封装成一个通用方法：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function getStyle(obj,attr) &#123;</span><br><span class="line">    if(obj.currentStyle) &#123;</span><br><span class="line">        //  return  obj.style.left    只能得到行内式的</span><br><span class="line">        // return  obj.currentStyle[&quot;left&quot;];   // 正确的写法，但是left 是传进来的</span><br><span class="line">        return  obj.currentStyle[attr];</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return window.getComputedStyle(obj,null)[attr];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="封装缓动动画"><a href="#封装缓动动画" class="headerlink" title="封装缓动动画"></a>封装缓动动画</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">function animate(obj,json,fn) &#123;</span><br><span class="line">    // 第一参数 动的对象   2  attr  动的那个属性   3   属性值少多少</span><br><span class="line">    clearInterval(obj.timer);</span><br><span class="line">    obj.timer = setInterval(function() &#123;</span><br><span class="line">        var flag = true;  //  用来判断是否停止定时器   定时器的里面</span><br><span class="line">        //  每隔 30 毫秒就要运行一次</span><br><span class="line">        for(var k in json) &#123; </span><br><span class="line">            //  计算步长</span><br><span class="line">            // target 目标位置    leader 不清楚，我们不知道用户改那个属性</span><br><span class="line">            // 检测用户给我们了什么属性，  我们就用这个属性的值 来计算</span><br><span class="line">            // 我们怎么知道用户给我们属性，我们怎么又能得到属性的值呢？</span><br><span class="line">            //  var leader = obj.style[attr];  他只能得到行内式</span><br><span class="line">            var leader = 0;</span><br><span class="line">            // 因为透明度是 小数   取值 0~1 之间    第二个  它没有单位</span><br><span class="line">            if(k == &quot;opacity&quot;) &#123;</span><br><span class="line">                // 先解决小数的问题</span><br><span class="line">                leader =  Math.round(getStyle(obj,k) * 100) || 100;</span><br><span class="line">                // 如果没有opacity  默认当 1 看    1* 100  = 100</span><br><span class="line">                // 我们去过来的是  0.3  但是小数不好计算 我们乘以100   30  好计算</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                leader = parseInt(getStyle(obj,k)) || 0;</span><br><span class="line">                // 他本身有单位 所以要去掉    默认的默认是 0</span><br><span class="line">            &#125;</span><br><span class="line">            //去掉px 的方法   parseInt(25px)   25</span><br><span class="line">            var step = (json[k] - leader) / 10;</span><br><span class="line">            step = step &gt; 0 ? Math.ceil(step) : Math.floor(step);</span><br><span class="line">            leader = leader + step;</span><br><span class="line">            if( k == &quot;opacity&quot;) &#123;   // 记住我们的透明是不加单位的  不要加px</span><br><span class="line">                obj.style.opacity = leader / 100;</span><br><span class="line">//                    opacity: 0.4;</span><br><span class="line">//                    filter: alpha(opacity = 40);     /*不能改只能是 40  不能是 0.4*/</span><br><span class="line">                obj.style.filter = &quot;alpha(opacity = &quot;+leader+&quot;)&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            // 设置层级</span><br><span class="line">            else if(k == &quot;zIndex&quot;) &#123;</span><br><span class="line">                obj.style.zIndex = json[k];    //  直接给值</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                obj.style[k] = leader + &quot;px&quot;;   // 其他的要单位</span><br><span class="line">            &#125;</span><br><span class="line">            if(leader != json[k]) &#123;  //  只要三个属性有一个没有到达，我就取反</span><br><span class="line">                // 这句话要写到 for in 里面   因为有三个属性，所以用 for in 才能遍历</span><br><span class="line">                // 三个都到了 都不执行这句话了</span><br><span class="line">                flag = false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(flag) &#123;</span><br><span class="line">            clearInterval(obj.timer);</span><br><span class="line">            if(fn)&#123;   // 如果有函数传递过来  ， 定时器结束了，说明动画结束  可以执行 回调函数</span><br><span class="line">                fn();   // 执行函数  fn + ();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,30)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -385,73 +290,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if( k == &quot;opacity&quot;) &#123;  </span><br><span class="line">  obj.style.opacity = leader / 100;</span><br><span class="line">  obj.style.filter = &quot;alpha(opacity = &quot;+leader+&quot;)&quot;;</span><br><span class="line">&#125;</span><br><span class="line">else if(k == &quot;zIndex&quot;) &#123;</span><br><span class="line">  obj.style.zIndex = json[k];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这几句代码就是缓动动画的实现<br>step步长设置为属性值和当前值的差除以10，保证step每次都不一样，然后对数值进行处理，再对当前值赋值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var step = (json[k] - leader) / 10;</span><br><span class="line">step = step &gt; 0 ? Math.ceil(step) : Math.floor(step);</span><br><span class="line">leader = leader + step;</span><br></pre></td></tr></table></figure></p>
 <h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">animate(DOMObj,&#123;&quot;zIndex&quot;:999,&quot;top&quot;:200,&quot;opacity&quot;:100&#125;, fn)</span><br></pre></td></tr></table></figure>
+        
+      </div>
+      
+      
       
     </div>
     
     
     
-
-    
-
-    <div>
-  
-    <div>
-    
-        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>小生磕头感谢您的阅读-------------</div>
-    
-</div>
-  
-</div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/30/封装自己的jQuery/" rel="prev" title="封装自己的jQuery">
-                封装自己的jQuery <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 

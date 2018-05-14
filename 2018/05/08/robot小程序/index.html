@@ -264,119 +264,24 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/08/robot小程序/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘源">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://p8phnirb4.bkt.clouddn.com/userimg.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="刘源的博客">
-    </span>
-
     
+    
+    <div class="post-block page">
       <header class="post-header">
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">聊天机器人小程序</h1>
-        
+	<h1 class="post-title" itemprop="name headline">聊天机器人小程序</h1>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-08T16:47:44+08:00">
-                2018-05-08
-              </time>
-            
 
-            
 
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/微信小程序/" itemprop="url" rel="index">
-                    <span itemprop="name">微信小程序</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/05/08/robot小程序/" class="leancloud_visitors" data-flag-title="聊天机器人小程序">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
       
-
       
-        <h2 id="聊天机器人小程序"><a href="#聊天机器人小程序" class="headerlink" title="聊天机器人小程序"></a>聊天机器人小程序</h2><hr>
+      <div class="post-body">
+        
+        
+          <h2 id="聊天机器人小程序"><a href="#聊天机器人小程序" class="headerlink" title="聊天机器人小程序"></a>聊天机器人小程序</h2><hr>
 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天学习了下微信小程序，微信官方提供的各类组件和API使用起来和vue类似，基本上会点前端基本功HTML，css，js的，熟悉vue，微信小程序都特别容易上手。</p>
 <p>写了一个简单的聊天机器人demo：</p>
 <p>wxml代码：<br>这里用id去区别用户和机器人，还有如果用户头像未定义，使用默认的静态图片<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;view id=&apos;message-id&apos; class=&apos;message&apos; style=&apos;min-height:&#123;&#123;second_height&#125;&#125;px;&apos;&gt;</span><br><span class="line">   &lt;block wx:for=&quot;&#123;&#123;tmpleData&#125;&#125;&quot; wx:key=&quot;item&quot;&gt; </span><br><span class="line">  &lt;view class=&quot;talk_recordboxme&quot; wx:if=&quot;&#123;&#123;item.id == &apos;1&apos;&#125;&#125;&quot;&gt;</span><br><span class="line">    &lt;view class=&quot;user&quot;&gt;</span><br><span class="line">      &lt;image wx:if=&quot;&#123;&#123;userInfo.avatarUrl&#125;&#125;&quot; src=&quot;&#123;&#123;userInfo.avatarUrl&#125;&#125;&quot;&gt;&lt;/image&gt;</span><br><span class="line">      &lt;image wx:else src=&quot;/images/11.jpg&quot;&gt;&lt;/image&gt;</span><br><span class="line">    &lt;/view&gt;</span><br><span class="line">    &lt;view class=&quot;talk_recordtext&quot;&gt;</span><br><span class="line">      &lt;view class=&quot;talk_label&quot;&gt;&#123;&#123;item.msg&#125;&#125;&lt;/view&gt;</span><br><span class="line">      &lt;view class=&quot;talk_time&quot;&gt;&#123;&#123;item.dateTime&#125;&#125;&lt;/view&gt;</span><br><span class="line">    &lt;/view&gt;</span><br><span class="line">  &lt;/view&gt;</span><br><span class="line">  &lt;view class=&quot;talk_recordbox&quot; wx:if=&quot;&#123;&#123;item.id == &apos;2&apos;&#125;&#125;&quot;&gt;</span><br><span class="line">    &lt;view class=&quot;user&quot;&gt;</span><br><span class="line">      &lt;image src=&quot;/images/11.jpg&quot; width=&quot;45px&quot; height=&quot;45px&quot;&gt;&lt;/image&gt;</span><br><span class="line">    &lt;/view&gt;</span><br><span class="line">    &lt;view class=&quot;talk_recordtext&quot;&gt;</span><br><span class="line">      &lt;view class=&quot;talk_label&quot;&gt;&#123;&#123;item.msg&#125;&#125;&lt;/view&gt;</span><br><span class="line">      &lt;view class=&quot;talk_time&quot;&gt;&#123;&#123;item.dateTime&#125;&#125;&lt;/view&gt;</span><br><span class="line">    &lt;/view&gt;</span><br><span class="line">  &lt;/view&gt;</span><br><span class="line">   &lt;/block&gt; </span><br><span class="line">&lt;/view&gt;</span><br></pre></td></tr></table></figure></p>
@@ -388,77 +293,15 @@
 <h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>小程序的使用制作其实相对简单，平时没事的时候写写练手，主要是获取数据API比较难找，毕竟想在讲究知识产权，而且数据就等于钱啊，免费的东西不多；还有就是一个好的idea，虽然每天发布的小程序很多，但其中正真的好的，优秀的小程序不多，所以，开发出实用又新颖的作品还是不容易的。</p>
 <p>微信小程序作为轻型应用很有可能会是未来移动互联网应用的主要形式，它的特点是小而快，但它不会替代所有的App，因为微信小程序目的主要还是解决小应用的问题，重点在于灵活、快捷、用完即走。据统计，首批上线的小程序就有三百多家，掀起了一阵热潮，但从趋势上看，小程序目前的活跃度一直在下降，可能的原因有两个：一是入口不容易找到，浪费用户时间；二是一部分用户在尝鲜之后就回归到了原生App，因为原生App的体验可能更加丰富。由此也可以看出，App们在一段时间内还是相对安全的。同时小程序可能会给微信带来一些AppStore的功能，稍微分流一些应用获取方式，但也很难替代App store，原因还是那一点，微信小程序主要还是解决小应用问题。从发展上来看，虽然目前它的热度有所下降，但微信小程序未来的应用空间还是很大的，它的价值也还需要时间的检验。</p>
 
+        
+      </div>
+      
+      
       
     </div>
     
     
     
-
-    
-
-    <div>
-  
-    <div>
-    
-        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>小生磕头感谢您的阅读-------------</div>
-    
-</div>
-  
-</div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/微信小程序/" rel="tag"><i class="fa fa-tag"></i> 微信小程序</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/04/05/封装轮播/" rel="next" title="封装轮播">
-                <i class="fa fa-chevron-left"></i> 封装轮播
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/09/node后台cors跨域post请求失败/" rel="prev" title="node后台cors跨域post请求失败">
-                node后台cors跨域post请求失败 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 
