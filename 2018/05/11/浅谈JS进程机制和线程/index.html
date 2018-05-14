@@ -71,7 +71,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="js,原理," />
 
 
 
@@ -82,16 +82,21 @@
 
 
 
-<meta name="description" content="技术和生活，我融为一体。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="刘源的博客">
-<meta property="og:url" content="http://yoursite.com/tags/js/index.html">
+<meta name="description" content="浅谈JS进程机制和线程 前言对于前端开发人员来说，js就是吃饭的玩意，都知道它从诞生之日起就是一门单线程的非阻塞的脚本语言。这是由其最初的用途来决定的：与浏览器交互。 先通俗的了解线程我直接举个直观点例子吧，你打开一个浏览器(应用程序)，那浏览器就是一个进程。打开浏览器后要做很多事情(各种分工)：发送请求，接受请求，渲染页面，执行js等等这些就是一个个线程。 Js单线程这个要回到Js历史了，布兰登">
+<meta name="keywords" content="js,原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈JS进程机制和线程">
+<meta property="og:url" content="http://yoursite.com/2018/05/11/浅谈JS进程机制和线程/index.html">
 <meta property="og:site_name" content="刘源的博客">
-<meta property="og:description" content="技术和生活，我融为一体。">
+<meta property="og:description" content="浅谈JS进程机制和线程 前言对于前端开发人员来说，js就是吃饭的玩意，都知道它从诞生之日起就是一门单线程的非阻塞的脚本语言。这是由其最初的用途来决定的：与浏览器交互。 先通俗的了解线程我直接举个直观点例子吧，你打开一个浏览器(应用程序)，那浏览器就是一个进程。打开浏览器后要做很多事情(各种分工)：发送请求，接受请求，渲染页面，执行js等等这些就是一个个线程。 Js单线程这个要回到Js历史了，布兰登">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p8phnirb4.bkt.clouddn.com/evenloop.jpg">
+<meta property="og:image" content="http://p8phnirb4.bkt.clouddn.com/v2-da078fa3eadf3db4bf455904ae06f84b_hd.jpg">
+<meta property="og:updated_time" content="2018-05-14T15:51:30.510Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="刘源的博客">
-<meta name="twitter:description" content="技术和生活，我融为一体。">
+<meta name="twitter:title" content="浅谈JS进程机制和线程">
+<meta name="twitter:description" content="浅谈JS进程机制和线程 前言对于前端开发人员来说，js就是吃饭的玩意，都知道它从诞生之日起就是一门单线程的非阻塞的脚本语言。这是由其最初的用途来决定的：与浏览器交互。 先通俗的了解线程我直接举个直观点例子吧，你打开一个浏览器(应用程序)，那浏览器就是一个进程。打开浏览器后要做很多事情(各种分工)：发送请求，接受请求，渲染页面，执行js等等这些就是一个个线程。 Js单线程这个要回到Js历史了，布兰登">
+<meta name="twitter:image" content="http://p8phnirb4.bkt.clouddn.com/evenloop.jpg">
 
 
 
@@ -121,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/js/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/11/浅谈JS进程机制和线程/"/>
 
 
 
 
 
-  <title>标签: js | 刘源的博客</title>
+  <title>浅谈JS进程机制和线程 | 刘源的博客</title>
   
 
 
@@ -146,7 +151,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/liuyuan6088"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -270,250 +275,230 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>js<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/11/浅谈JS进程机制和线程/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘源">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p8phnirb4.bkt.clouddn.com/userimg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="刘源的博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/05/11/电商放大镜demo/" itemprop="url">
-              
-                <span itemprop="name">电商放大镜demo</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">浅谈JS进程机制和线程</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-11T13:47:44+08:00"
-              content="2018-05-11" >
-          05-11
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-11T13:47:44+08:00">
+                2018-05-11
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          <span id="busuanzi_container_page_pv">
+ &nbsp; | &nbsp; 热度&nbsp; <span id="busuanzi_value_page_pv"></span>°C
+ </span>
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/05/11/浅谈JS进程机制和线程/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/05/11/浅谈JS进程机制和线程/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2018/05/11/浅谈JS进程机制和线程/" class="leancloud_visitors" data-flag-title="浅谈JS进程机制和线程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/11/浅谈JS进程机制和线程/" itemprop="url">
-              
-                <span itemprop="name">浅谈JS进程机制和线程</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-11T13:47:44+08:00"
-              content="2018-05-11" >
-          05-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/10/数组去重的几种方法/" itemprop="url">
-              
-                <span itemprop="name">几种方法实现数组去重</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-10T13:47:44+08:00"
-              content="2018-05-10" >
-          05-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/09/node后台cors跨域post请求失败/" itemprop="url">
-              
-                <span itemprop="name">node后台cors跨域post请求失败</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-09T21:47:22+08:00"
-              content="2018-05-09" >
-          05-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/04/16/移动端常见BUG收集/" itemprop="url">
-              
-                <span itemprop="name">移动端常见BUG收集</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-04-16T19:47:44+08:00"
-              content="2018-04-16" >
-          04-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/04/05/封装轮播/" itemprop="url">
-              
-                <span itemprop="name">封装轮播</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-04-05T21:37:44+08:00"
-              content="2018-04-05" >
-          04-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/03/30/封装自己的jQuery/" itemprop="url">
-              
-                <span itemprop="name">封装自己的jQuery</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-30T19:47:44+08:00"
-              content="2018-03-30" >
-          03-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/03/21/封装一个简单的缓动动画/" itemprop="url">
-              
-                <span itemprop="name">封装一个简单的缓动动画</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-21T16:17:44+08:00"
-              content="2018-03-21" >
-          03-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <h2 id="浅谈JS进程机制和线程"><a href="#浅谈JS进程机制和线程" class="headerlink" title="浅谈JS进程机制和线程"></a>浅谈JS进程机制和线程</h2><p><img src="http://p8phnirb4.bkt.clouddn.com/evenloop.jpg"></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>对于前端开发人员来说，js就是吃饭的玩意，都知道它从诞生之日起就是一门单线程的非阻塞的脚本语言。这是由其最初的用途来决定的：与浏览器交互。</p>
+<p><strong>先通俗的了解线程</strong><br>我直接举个直观点例子吧，你打开一个浏览器(应用程序)，那浏览器就是一个进程。打开浏览器后要做很多事情(各种分工)：发送请求，接受请求，渲染页面，执行js等等这些就是一个个线程。</p>
+<p><strong>Js单线程</strong><br>这个要回到Js历史了，布兰登·艾奇(Brendan Eich)老哥用10天创造js。当时js用来干嘛，简单的浏览器交互，验证，操作一下dom是吧。那把它设计成那么复杂干什么，而且如果多线程的话，操作dom会出现麻烦的事情，假设一个线程读取DOM节点数据的同时，另一个线程把那个DOM节点删了，呵呵。所以js一个线程就够了，也就是一步一步顺序运行下来。</p>
+<h3 id="event-loop（事件循环）"><a href="#event-loop（事件循环）" class="headerlink" title="event loop（事件循环）"></a>event loop（事件循环）</h3><p>上面我们知道了js是一门单线程的语言，js还具有另一个特点：非阻塞。非阻塞简单来说就是当程序遇到需要等待的时候，直接跳过，等这边完了，再来执行，看下面示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">console.log(1);</span><br><span class="line">setTimeout(function () &#123;</span><br><span class="line">     console.log(2);</span><br><span class="line">&#125;, 1000);</span><br><span class="line">console.log(3);</span><br></pre></td></tr></table></figure></p>
+<p>打印结果都知道是：1，3，2。非阻塞就是浏览器正常从上往下执行，打印1后，执行setTimeout异步，然后接着打印3，最后在回过头来执行异步操作打印2.而在Java或c++这样阻塞语言中，则是打印1，然后等待1s打印2，再打印3。</p>
+<p><strong>执行栈与事件队列</strong><br>当javascript代码执行的时候会将不同的变量存于内存中的不同位置：堆（heap）和栈（stack）中来加以区分。其中，堆里存放着一些对象。而栈中则存放着一些基础类型变量以及对象的指针。 但是我们这里说的执行栈和上面这个栈的意义却有些不同。</p>
+<p>我们知道，当我们调用一个方法的时候，js会生成一个与这个方法对应的执行环境（context），又叫执行上下文。这个执行环境中存在着这个方法的私有作用域，上层作用域的指向，方法的参数，这个作用域中定义的变量以及这个作用域的this对象。 而当一系列方法被依次调用的时候，因为js是单线程的，同一时间只能执行一个方法，于是这些方法被排队在一个单独的地方。这个地方被称为执行栈。</p>
+<p>当一个脚本第一次执行的时候，js引擎会解析这段代码，并将其中的同步代码按照执行顺序加入执行栈中，然后从头开始执行。如果当前执行的是一个方法，那么js会向执行栈中添加这个方法的执行环境，然后进入这个执行环境继续执行其中的代码。当这个执行环境中的代码 执行完毕并返回结果后，js会退出这个执行环境并把这个执行环境销毁，回到上一个方法的执行环境。。这个过程反复进行，直到执行栈中的代码全部执行完毕。</p>
+<p>以上就是js的同步操作执行。但是：如果其中有异步操作：</p>
+<p>js引擎遇到一个异步事件后并不会一直等待其返回结果，而是会将这个事件挂起，继续执行执行栈中的其他任务。当一个异步事件返回结果后，js会将这个事件加入与当前执行栈不同的另一个队列，我们称之为事件队列。被放入事件队列不会立刻执行其回调，而是等待当前执行栈中的所有任务都执行完毕， 主线程处于闲置状态时，主线程会去查找事件队列是否有任务。如果有，那么主线程会从中取出排在第一位的事件，并把这个事件对应的回调放入执行栈中，然后执行其中的同步代码…，如此反复，这样就形成了一个无限的循环。这就是这个过程被称为“事件循环（Event Loop）”的原因。<br><img src="http://p8phnirb4.bkt.clouddn.com/v2-da078fa3eadf3db4bf455904ae06f84b_hd.jpg"></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    <div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>小生磕头感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/原理/" rel="tag"><i class="fa fa-tag"></i> 原理</a>
+          
+        </div>
+      
+
+    
+        <div class="copyright" style="clear:both;">
+           <p><span>本文标题:</span><a href="/2018/05/11/浅谈JS进程机制和线程/">浅谈JS进程机制和线程</a></p>
+           <p><span>文章作者:</span><a href="/" title="访问 刘源 的个人博客">刘源</a></p>
+           <p><span>原始链接:</span><a href="/2018/05/11/浅谈JS进程机制和线程/" title="浅谈JS进程机制和线程">http://yoursite.com/2018/05/11/浅谈JS进程机制和线程/</a></p>
+           <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" title="Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)">Attribution-NonCommercial 4.0</a></p>
+           <p><span>若转载，请留以上信息，谢谢合作</span></p>
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/11/电商放大镜demo/" rel="next" title="电商放大镜demo">
+                <i class="fa fa-chevron-left"></i> 电商放大镜demo
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/12/vue图片上传demo/" rel="prev" title="vue图片上传demo">
+                vue图片上传demo <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -521,6 +506,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -541,8 +535,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -652,6 +655,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#浅谈JS进程机制和线程"><span class="nav-number">1.</span> <span class="nav-text">浅谈JS进程机制和线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#event-loop（事件循环）"><span class="nav-number">1.2.</span> <span class="nav-text">event loop（事件循环）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -806,6 +825,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
