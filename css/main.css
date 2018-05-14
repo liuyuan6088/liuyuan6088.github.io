@@ -2134,7 +2134,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #3b248a;
+  background: #59f7ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3302,6 +3302,13 @@ pre .javascript .function {
     text-align: justify;
   }
 }
+.post-footer .copyright {
+  padding-top: 1.5em;
+  padding-left: 1em;
+  font-size: 12px;
+  line-height: 1em;
+  border: 1px solid #ccc;
+}
 .btnly span {
   position: relative;
 }
@@ -3404,6 +3411,9 @@ pre .javascript .function {
 .wobble {
   -webkit-animation-name: wobble;
   animation-name: wobble;
+}
+.links-of-blogroll-list .links-of-blogroll-item {
+  display: inline-block;
 }
 @-moz-keyframes wobble {
   from {
