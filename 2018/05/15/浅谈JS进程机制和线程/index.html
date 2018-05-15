@@ -86,13 +86,13 @@
 <meta name="keywords" content="js,原理,进程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈JS进程机制和线程">
-<meta property="og:url" content="http://yoursite.com/2018/05/11/浅谈JS进程机制和线程/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/05/15/浅谈JS进程机制和线程/index.html">
 <meta property="og:site_name" content="刘源的博客">
 <meta property="og:description" content="浅谈JS进程机制和线程 前言对于前端开发人员来说，js就是吃饭的玩意，都知道它从诞生之日起就是一门单线程的非阻塞的脚本语言。这是由其最初的用途来决定的：与浏览器交互。 先通俗的了解线程我直接举个直观点例子吧，你打开一个浏览器(应用程序)，那浏览器就是一个进程。打开浏览器后要做很多事情(各种分工)：发送请求，接受请求，渲染页面，执行js等等这些就是一个个线程。 Js单线程这个要回到Js历史了，布兰登">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p8phnirb4.bkt.clouddn.com/evenloop.jpg">
 <meta property="og:image" content="http://p8phnirb4.bkt.clouddn.com/v2-da078fa3eadf3db4bf455904ae06f84b_hd.jpg">
-<meta property="og:updated_time" content="2018-05-15T02:36:10.260Z">
+<meta property="og:updated_time" content="2018-05-15T02:41:24.360Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈JS进程机制和线程">
 <meta name="twitter:description" content="浅谈JS进程机制和线程 前言对于前端开发人员来说，js就是吃饭的玩意，都知道它从诞生之日起就是一门单线程的非阻塞的脚本语言。这是由其最初的用途来决定的：与浏览器交互。 先通俗的了解线程我直接举个直观点例子吧，你打开一个浏览器(应用程序)，那浏览器就是一个进程。打开浏览器后要做很多事情(各种分工)：发送请求，接受请求，渲染页面，执行js等等这些就是一个个线程。 Js单线程这个要回到Js历史了，布兰登">
@@ -126,7 +126,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/11/浅谈JS进程机制和线程/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/15/浅谈JS进程机制和线程/"/>
 
 
 
@@ -289,7 +289,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/11/浅谈JS进程机制和线程/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/浅谈JS进程机制和线程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘源">
@@ -318,8 +318,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-11T13:47:44+08:00">
-                2018-05-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-15T10:17:44+08:00">
+                2018-05-15
               </time>
             
 
@@ -363,8 +363,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2018/05/11/浅谈JS进程机制和线程/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/05/11/浅谈JS进程机制和线程/" itemprop="commentsCount"></span>
+                <a href="/2018/05/15/浅谈JS进程机制和线程/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/05/15/浅谈JS进程机制和线程/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -372,7 +372,7 @@
 
           
           
-             <span id="/2018/05/11/浅谈JS进程机制和线程/" class="leancloud_visitors" data-flag-title="浅谈JS进程机制和线程">
+             <span id="/2018/05/15/浅谈JS进程机制和线程/" class="leancloud_visitors" data-flag-title="浅谈JS进程机制和线程">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -417,12 +417,23 @@
 <p>简单的用口水话描述下，还是上面的实例代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">console.log(1);</span><br><span class="line">setTimeout(function () &#123;</span><br><span class="line">     console.log(2);</span><br><span class="line">&#125;, 1000);</span><br><span class="line">console.log(3);</span><br></pre></td></tr></table></figure></p>
 <p>其中setTimeout是异步，其他是同步，js进程我们可以分为调用栈和回调队列两部分（同步异步网上也有分做宏任务和微任务）</p>
 <blockquote>
-<p>执行第一句，检测为同步，进入调用栈执行，打印1，然后出栈；<br>接着执行第二句，检测为异步，执行setTimeout放进回调队列等待，等待执行里面语句，然后出栈；<br>接着执行第三句，检测为同步，进入调用栈执行，打印3，然后出栈；<br>主线程全部执行完毕，去检测回调队列有一个任务，延时1秒进栈，打印2，然后出栈；</p>
+<ul>
+<li>执行第一句，检测为同步，进入调用栈执行，打印1，然后出栈；</li>
+<li>接着执行第二句，检测为异步，执行setTimeout放进回调队列等待，等待执行里面语句，然后出栈；</li>
+<li>接着执行第三句，检测为同步，进入调用栈执行，打印3，然后出栈；</li>
+<li>主线程全部执行完毕，去检测回调队列有一个任务，延时1秒进栈，打印2，然后出栈；</li>
+</ul>
 </blockquote>
 <p>这里需要注意的一点是setTimeout第二个参数时间具体定义是：延迟多少时间进栈调用，而不是我们平常所认为的多少秒后执行，也就是说如果进栈前还有其他任务，那么执行的时间就会延后，所以平时我们看到的setTimeout执行一般都会比我们设置的时间要长</p>
 <p><strong>所以在js中的时间循环大致过程</strong>、</p>
 <blockquote>
-<p>主线程读取js代码, 形成相应的堆和执行栈, 执行同步任务<br>当主线程遇到异步任务,，指定给异步进程处理, 同时继续执行同步任务<br>当异步进程处理完毕后， 将相应的异步任务推入到任务队列首部<br>主线程任务处理完毕后,，查询任务队列，则取出一个任务队列推入到主线程的执行栈<br>重复执行第2、3、4步，这就称为事件循环</p>
+<ul>
+<li>主线程读取js代码, 形成相应的堆和执行栈, 执行同步任务</li>
+<li>当主线程遇到异步任务,，指定给异步进程处理, 同时继续执行同步任务</li>
+<li>当异步进程处理完毕后， 将相应的异步任务推入到任务队列首部</li>
+<li>主线程任务处理完毕后,，查询任务队列，则取出一个任务队列推入到主线程的执行栈</li>
+<li>重复执行第2、3、4步，这就称为事件循环</li>
+</ul>
 </blockquote>
 <h3 id="Promise-和-async-await"><a href="#Promise-和-async-await" class="headerlink" title="Promise 和 async/await"></a>Promise 和 async/await</h3><p>说起事件循环，就不得不提起ES6的Promise和ES7的async/await<br><strong>大家可以去看阮一峰的ES6：<a href="http://es6.ruanyifeng.com/#docs/" target="_blank" rel="noopener">http://es6.ruanyifeng.com/#docs/</a></strong></p>
 <h4 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h4><p>Promise主要是用于解决回调深渊的问题，是异步编程的一种解决方案</p>
@@ -432,7 +443,14 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> first = <span class="function"><span class="params">()</span> =&gt;</span> (<span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>);</span><br><span class="line">    <span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span>&#123;</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="number">7</span>);</span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">           <span class="built_in">console</span>.log(<span class="number">5</span>);</span><br><span class="line">           resolve(<span class="number">6</span>); </span><br><span class="line">        &#125;,<span class="number">0</span>)</span><br><span class="line">        resolve(<span class="number">1</span>);</span><br><span class="line">    &#125;); </span><br><span class="line">    resolve(<span class="number">2</span>);</span><br><span class="line">    p.then(<span class="function">(<span class="params">arg</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(arg);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line">first().then(<span class="function">(<span class="params">arg</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(arg);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">4</span>);</span><br></pre></td></tr></table></figure>
 <p>执行过程</p>
 <blockquote>
-<p>执行开始，new Promise的定义的内容会立即执行，打印3，继续执行定义p的new Promise，打印7；<br>然后发现setTimeout，和first的回调then，p的回调then，这些异步操作会放入回调队列等待；<br>在接着打印4，调用栈主程序执行完毕，去调队列等待把第一个任务调用执行；<br>所以执行p的回调，resolve(1)，打印1，接着执行first的回调，resolve(2)，打印2；<br>接着执行setTimeout，延迟0秒进栈，打印5，因为P的状态已经改变，所以resolve(6)不会有效<br>最后打印的顺序是：3 7 4 1 2 5</p>
+<ul>
+<li>执行开始，new Promise的定义的内容会立即执行，打印3，继续执行定义p的new Promise，打印7；</li>
+<li>然后发现setTimeout，和first的回调then，p的回调then，这些异步操作会放入回调队列等待；</li>
+<li>在接着打印4，调用栈主程序执行完毕，去调队列等待把第一个任务调用执行；</li>
+<li>所以执行p的回调，resolve(1)，打印1，接着执行first的回调，resolve(2)，打印2；</li>
+<li>接着执行setTimeout，延迟0秒进栈，打印5，因为P的状态已经改变，所以resolve(6)不会有效</li>
+<li>最后打印的顺序是：3 7 4 1 2 5</li>
+</ul>
 </blockquote>
 <h4 id="async-await"><a href="#async-await" class="headerlink" title="async/await"></a>async/await</h4><p>阮一峰说：async就是 Generator 函数的语法糖，async函数相当于一个简写的返回Promise实例的函数,<br>await的执行会获取表达式后边的Promise执行结果，相当于我们调用then获取回调结果一样:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getNumber</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    resolve(<span class="number">1</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// =&gt;</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getNumber</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getNumber().then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// got data</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// =&gt;</span></span><br><span class="line"><span class="keyword">let</span> data = <span class="keyword">await</span> getNumber()</span><br></pre></td></tr></table></figure>
@@ -480,9 +498,9 @@
 
     
         <div class="copyright" style="clear:both;">
-           <p><span>本文标题:</span><a href="/2018/05/11/浅谈JS进程机制和线程/">浅谈JS进程机制和线程</a></p>
+           <p><span>本文标题:</span><a href="/2018/05/15/浅谈JS进程机制和线程/">浅谈JS进程机制和线程</a></p>
            <p><span>文章作者:</span><a href="/" title="访问 刘源 的个人博客">刘源</a></p>
-           <p><span>原始链接:</span><a href="/2018/05/11/浅谈JS进程机制和线程/" title="浅谈JS进程机制和线程">http://yoursite.com/2018/05/11/浅谈JS进程机制和线程/</a></p>
+           <p><span>原始链接:</span><a href="/2018/05/15/浅谈JS进程机制和线程/" title="浅谈JS进程机制和线程">http://yoursite.com/2018/05/15/浅谈JS进程机制和线程/</a></p>
            <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" title="Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)">Attribution-NonCommercial 4.0</a></p>
            <p><span>若转载，请留以上信息，谢谢合作</span></p>
         </div>
@@ -496,8 +514,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/11/电商放大镜demo/" rel="next" title="电商放大镜demo">
-                <i class="fa fa-chevron-left"></i> 电商放大镜demo
+              <a href="/2018/05/13/css变量/" rel="next" title="css奇淫技巧--变量">
+                <i class="fa fa-chevron-left"></i> css奇淫技巧--变量
               </a>
             
           </div>
@@ -505,10 +523,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/12/vue图片上传demo/" rel="prev" title="vue图片上传demo">
-                vue图片上传demo <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
