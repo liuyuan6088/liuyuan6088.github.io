@@ -71,7 +71,7 @@
 
 
 
-  <meta name="keywords" content="js,css,bug," />
+  <meta name="keywords" content="css,js,bug," />
 
 
 
@@ -83,10 +83,10 @@
 
 
 <meta name="description" content="前言大家都知道position: fixed用于生成绝对定位的元素，相对于浏览器窗口进行定位。元素的位置通过 “left”, “top”, “right” 以及 “bottom” 属性进行规定。 突然发现自己之前写的网页有个小bug：在购买页面的结算按钮部分，有个交互就是正常是基于标准文档static里流布局在购物车下方，当网页监听滚轮位于上一部分，会固定定位fixed出现在用户浏览器下方；因为按">
-<meta name="keywords" content="js,css,bug">
+<meta name="keywords" content="css,js,bug">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一个关于fixed抖动的bug">
-<meta property="og:url" content="http://yoursite.com/2018/05/15/一个关于fixed抖动的bug/index.html">
+<meta property="og:url" content="http://liuyuannb.com/2018/05/15/一个关于fixed抖动的bug/index.html">
 <meta property="og:site_name" content="刘源的博客">
 <meta property="og:description" content="前言大家都知道position: fixed用于生成绝对定位的元素，相对于浏览器窗口进行定位。元素的位置通过 “left”, “top”, “right” 以及 “bottom” 属性进行规定。 突然发现自己之前写的网页有个小bug：在购买页面的结算按钮部分，有个交互就是正常是基于标准文档static里流布局在购物车下方，当网页监听滚轮位于上一部分，会固定定位fixed出现在用户浏览器下方；因为按">
 <meta property="og:locale" content="zh-Hans">
@@ -127,7 +127,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/15/一个关于fixed抖动的bug/"/>
+  <link rel="canonical" href="http://liuyuannb.com/2018/05/15/一个关于fixed抖动的bug/"/>
 
 
 
@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/一个关于fixed抖动的bug/">
+    <link itemprop="mainEntityOfPage" href="http://liuyuannb.com/2018/05/15/一个关于fixed抖动的bug/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘源">
@@ -451,9 +451,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
-          
             <a href="/tags/css/" rel="tag"><i class="fa fa-tag"></i> css</a>
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
           
             <a href="/tags/bug/" rel="tag"><i class="fa fa-tag"></i> bug</a>
           
@@ -464,7 +464,7 @@
         <div class="copyright" style="clear:both;">
            <p><span>本文标题:</span><a href="/2018/05/15/一个关于fixed抖动的bug/">一个关于fixed抖动的bug</a></p>
            <p><span>文章作者:</span><a href="/" title="访问 刘源 的个人博客">刘源</a></p>
-           <p><span>原始链接:</span><a href="/2018/05/15/一个关于fixed抖动的bug/" title="一个关于fixed抖动的bug">http://yoursite.com/2018/05/15/一个关于fixed抖动的bug/</a></p>
+           <p><span>原始链接:</span><a href="/2018/05/15/一个关于fixed抖动的bug/" title="一个关于fixed抖动的bug">http://liuyuannb.com/2018/05/15/一个关于fixed抖动的bug/</a></p>
            <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" title="Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)">Attribution-NonCommercial 4.0</a></p>
            <p><span>若转载，请留以上信息，谢谢合作</span></p>
         </div>
@@ -1015,6 +1015,21 @@
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
   
