@@ -4,8 +4,56 @@
 
     
   <url>
+    <loc>http://liuyuannb.com/2018/05/20/vuex%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2018-05-20T16:02:23.161Z</lastmod>
+    <data>
+        <display>
+        <title>vuex笔记</title>
+        <pubTime>2018-05-20T15:19:44.000Z</pubTime>
+        
+        <tag>js</tag>
+         
+        <tag>vue</tag>
+         
+        <tag>总结</tag>
+         
+         
+           
+             
+              <breadCrumb title="vue" url="http://liuyuannb.com/categories/vue/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://liuyuannb.com/2018/05/19/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/</loc>
+    <lastmod>2018-05-20T15:34:48.924Z</lastmod>
+    <data>
+        <display>
+        <title>移动端开发知识汇总</title>
+        <pubTime>2018-05-19T15:49:44.000Z</pubTime>
+        
+        <tag>js</tag>
+         
+        <tag>总结</tag>
+         
+        <tag>移动端</tag>
+         
+         
+           
+             
+              <breadCrumb title="移动端" url="http://liuyuannb.com/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://liuyuannb.com/2018/05/16/react%E5%AD%A6%E4%B9%A0%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/</loc>
-    <lastmod>2018-05-16T15:37:55.475Z</lastmod>
+    <lastmod>2018-05-16T15:44:48.320Z</lastmod>
     <data>
         <display>
         <title>react学习知识点汇总</title>
@@ -13,9 +61,9 @@
         
         <tag>js</tag>
          
-        <tag>react</tag>
-         
         <tag>总结</tag>
+         
+        <tag>react</tag>
          
          
            
@@ -214,9 +262,9 @@
         <title>node后台cors跨域post请求失败</title>
         <pubTime>2018-05-09T13:47:22.000Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>node</tag>
+         
+        <tag>js</tag>
          
          
            
