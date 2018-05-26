@@ -82,18 +82,18 @@
 
 
 
-<meta name="description" content="聊天机器人小程序 前言今天学习了下微信小程序，微信官方提供的各类组件和API使用起来和vue类似，基本上会点前端基本功HTML，css，js的，熟悉vue，微信小程序都特别容易上手。 写了一个简单的聊天机器人demo： wxml代码：这里用id去区别用户和机器人，还有如果用户头像未定义，使用默认的静态图片1234567891011121314151617181920212223&amp;lt;view i">
+<meta name="description" content="聊天机器人小程序 前言微信小程序，微信官方提供的各类组件和API使用起来和vue类似，基本上会点前端基本功HTML，css，js的，熟悉vue，微信小程序都特别容易上手。 写了一个简单的聊天机器人demo： wxml代码：这里用id去区别用户和机器人，还有如果用户头像未定义，使用默认的静态图片1234567891011121314151617181920212223&amp;lt;view id=&amp;apo">
 <meta name="keywords" content="微信小程序">
 <meta property="og:type" content="article">
 <meta property="og:title" content="聊天机器人小程序">
 <meta property="og:url" content="http://liuyuannb.com/2018/05/08/robot小程序/index.html">
 <meta property="og:site_name" content="刘源的博客">
-<meta property="og:description" content="聊天机器人小程序 前言今天学习了下微信小程序，微信官方提供的各类组件和API使用起来和vue类似，基本上会点前端基本功HTML，css，js的，熟悉vue，微信小程序都特别容易上手。 写了一个简单的聊天机器人demo： wxml代码：这里用id去区别用户和机器人，还有如果用户头像未定义，使用默认的静态图片1234567891011121314151617181920212223&amp;lt;view i">
+<meta property="og:description" content="聊天机器人小程序 前言微信小程序，微信官方提供的各类组件和API使用起来和vue类似，基本上会点前端基本功HTML，css，js的，熟悉vue，微信小程序都特别容易上手。 写了一个简单的聊天机器人demo： wxml代码：这里用id去区别用户和机器人，还有如果用户头像未定义，使用默认的静态图片1234567891011121314151617181920212223&amp;lt;view id=&amp;apo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-13T08:59:54.194Z">
+<meta property="og:updated_time" content="2018-05-26T16:42:02.408Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="聊天机器人小程序">
-<meta name="twitter:description" content="聊天机器人小程序 前言今天学习了下微信小程序，微信官方提供的各类组件和API使用起来和vue类似，基本上会点前端基本功HTML，css，js的，熟悉vue，微信小程序都特别容易上手。 写了一个简单的聊天机器人demo： wxml代码：这里用id去区别用户和机器人，还有如果用户头像未定义，使用默认的静态图片1234567891011121314151617181920212223&amp;lt;view i">
+<meta name="twitter:description" content="聊天机器人小程序 前言微信小程序，微信官方提供的各类组件和API使用起来和vue类似，基本上会点前端基本功HTML，css，js的，熟悉vue，微信小程序都特别容易上手。 写了一个简单的聊天机器人demo： wxml代码：这里用id去区别用户和机器人，还有如果用户头像未定义，使用默认的静态图片1234567891011121314151617181920212223&amp;lt;view id=&amp;apo">
 
 
 
@@ -401,7 +401,7 @@
 
       
         <h2 id="聊天机器人小程序"><a href="#聊天机器人小程序" class="headerlink" title="聊天机器人小程序"></a>聊天机器人小程序</h2><hr>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天学习了下微信小程序，微信官方提供的各类组件和API使用起来和vue类似，基本上会点前端基本功HTML，css，js的，熟悉vue，微信小程序都特别容易上手。</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>微信小程序，微信官方提供的各类组件和API使用起来和vue类似，基本上会点前端基本功HTML，css，js的，熟悉vue，微信小程序都特别容易上手。</p>
 <p>写了一个简单的聊天机器人demo：</p>
 <p>wxml代码：<br>这里用id去区别用户和机器人，还有如果用户头像未定义，使用默认的静态图片<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;view id=&apos;message-id&apos; class=&apos;message&apos; style=&apos;min-height:&#123;&#123;second_height&#125;&#125;px;&apos;&gt;</span><br><span class="line">   &lt;block wx:for=&quot;&#123;&#123;tmpleData&#125;&#125;&quot; wx:key=&quot;item&quot;&gt; </span><br><span class="line">  &lt;view class=&quot;talk_recordboxme&quot; wx:if=&quot;&#123;&#123;item.id == &apos;1&apos;&#125;&#125;&quot;&gt;</span><br><span class="line">    &lt;view class=&quot;user&quot;&gt;</span><br><span class="line">      &lt;image wx:if=&quot;&#123;&#123;userInfo.avatarUrl&#125;&#125;&quot; src=&quot;&#123;&#123;userInfo.avatarUrl&#125;&#125;&quot;&gt;&lt;/image&gt;</span><br><span class="line">      &lt;image wx:else src=&quot;/images/11.jpg&quot;&gt;&lt;/image&gt;</span><br><span class="line">    &lt;/view&gt;</span><br><span class="line">    &lt;view class=&quot;talk_recordtext&quot;&gt;</span><br><span class="line">      &lt;view class=&quot;talk_label&quot;&gt;&#123;&#123;item.msg&#125;&#125;&lt;/view&gt;</span><br><span class="line">      &lt;view class=&quot;talk_time&quot;&gt;&#123;&#123;item.dateTime&#125;&#125;&lt;/view&gt;</span><br><span class="line">    &lt;/view&gt;</span><br><span class="line">  &lt;/view&gt;</span><br><span class="line">  &lt;view class=&quot;talk_recordbox&quot; wx:if=&quot;&#123;&#123;item.id == &apos;2&apos;&#125;&#125;&quot;&gt;</span><br><span class="line">    &lt;view class=&quot;user&quot;&gt;</span><br><span class="line">      &lt;image src=&quot;/images/11.jpg&quot; width=&quot;45px&quot; height=&quot;45px&quot;&gt;&lt;/image&gt;</span><br><span class="line">    &lt;/view&gt;</span><br><span class="line">    &lt;view class=&quot;talk_recordtext&quot;&gt;</span><br><span class="line">      &lt;view class=&quot;talk_label&quot;&gt;&#123;&#123;item.msg&#125;&#125;&lt;/view&gt;</span><br><span class="line">      &lt;view class=&quot;talk_time&quot;&gt;&#123;&#123;item.dateTime&#125;&#125;&lt;/view&gt;</span><br><span class="line">    &lt;/view&gt;</span><br><span class="line">  &lt;/view&gt;</span><br><span class="line">   &lt;/block&gt; </span><br><span class="line">&lt;/view&gt;</span><br></pre></td></tr></table></figure></p>
 <p>js代码：</p>
@@ -461,8 +461,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/01/mpvue简介/" rel="next" title="mpvue简介">
-                <i class="fa fa-chevron-left"></i> mpvue简介
+              <a href="/2018/05/07/vuex笔记/" rel="next" title="vuex笔记">
+                <i class="fa fa-chevron-left"></i> vuex笔记
               </a>
             
           </div>
@@ -559,7 +559,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -581,7 +581,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
