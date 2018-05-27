@@ -71,7 +71,7 @@
 
 
 
-  <meta name="keywords" content="vue,js," />
+  <meta name="keywords" content="js,vue," />
 
 
 
@@ -83,7 +83,7 @@
 
 
 <meta name="description" content="mpvue简介mpvue: vuejs和小程序碰撞出来的火花 微信自推出小程序以来，热度一直居高不下，各大公司开始专门开发小程序，但是小程序自定义的wxml和wxss和自己定义的语法，让被三大框架统治的前端江湖头疼不易，因为需要专门为小程序开发一套代码来维护，也徒增了学习成本，中间虽有支持vuejs语法的wepy独领风骚，也是需要学习wepy的语法，直至今年3月，mpvue横空出世，也得到了vu">
-<meta name="keywords" content="vue,js">
+<meta name="keywords" content="js,vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mpvue简介">
 <meta property="og:url" content="http://liuyuannb.com/2018/05/16/mpvue简介/index.html">
@@ -419,7 +419,7 @@
 <p>执行vue init mpvue/mpvue-quickstart mpvue-demo 然后一路回车下去，你就得到了一个mpvue项目脚手架</p>
 <p>进入mpvue-demo目录，执行npm install &amp;&amp; npm run dev启动项目  然后打开微信开发者工具，打开mpvue-demo目录，就进入了mpvue的世界<br>先看下mpvue的src目录，也就是源码目录结构</p>
 <p><img src="http://p8phnirb4.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20180522233435.png"></p>
-<p>然后我们打开/pages/counter/index.vue看下<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"mpvue-demo"</span>&gt;</span><br><span class="line">    &lt;p <span class="class"><span class="keyword">class</span></span>=<span class="string">"title"</span>&gt;&#123;&#123;title&#125;&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default &#123;</span></span><br><span class="line"><span class="regexp">  data () &#123;</span></span><br><span class="line"><span class="regexp">    return &#123;</span></span><br><span class="line"><span class="regexp">      title: 'Hello Mpvue'</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">.title&#123;</span><br><span class="line">  color:#ed12a3;</span><br><span class="line">  text-align: center;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>然后我们打开/pages/counter/index.vue看下<br><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"mpvue-demo"</span>&gt;</span><br><span class="line">    &lt;p <span class="class"><span class="keyword">class</span></span>=<span class="string">"title"</span>&gt;&#123;&#123;title&#125;&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default &#123;</span></span><br><span class="line"><span class="regexp">  data () &#123;</span></span><br><span class="line"><span class="regexp">    return &#123;</span></span><br><span class="line"><span class="regexp">      title: 'Hello Mpvue'</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">.title&#123;</span><br><span class="line">  color:#ed12a3;</span><br><span class="line">  text-align: center;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></div></p>
 <p>修改完毕后，打开src/main.js修改一下pages的配置，改为pages: [‘^pages/counter/main’], 这样counter页面就变成了首页，这时候小程序的开发者工具应该就能显示出一行 hello mpvue的字样</p>
 
       
@@ -448,9 +448,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
-          
             <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
           
         </div>
       

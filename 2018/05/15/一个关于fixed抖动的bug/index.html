@@ -71,7 +71,7 @@
 
 
 
-  <meta name="keywords" content="css,js,bug," />
+  <meta name="keywords" content="js,css,bug," />
 
 
 
@@ -83,7 +83,7 @@
 
 
 <meta name="description" content="前言大家都知道position: fixed用于生成绝对定位的元素，相对于浏览器窗口进行定位。元素的位置通过 “left”, “top”, “right” 以及 “bottom” 属性进行规定。 突然发现自己之前写的网页有个小bug：在购买页面的结算按钮部分，有个交互就是正常是基于标准文档static里流布局在购物车下方，当网页监听滚轮位于上一部分，会固定定位fixed出现在用户浏览器下方；因为按">
-<meta name="keywords" content="css,js,bug">
+<meta name="keywords" content="js,css,bug">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一个关于fixed抖动的bug">
 <meta property="og:url" content="http://liuyuannb.com/2018/05/15/一个关于fixed抖动的bug/index.html">
@@ -414,7 +414,7 @@
 <p><img src="http://p8phnirb4.bkt.clouddn.com/888.png" alt=""></p>
 <p>这就知道了具体问题了，就是这多顶出的大约1px的像素，静态看似乎没问题，但一旦加上一些动效，就会有抖动，体验很差。但因为是概率性问题，突然不知道如何去解决？</p>
 <h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>尝试过可能是代码冲突，于是删改了相关代码，也不行！突然想起以前看过一篇讲如何优化动画性能的文章，里面说过一个解决抖动的方案，于是尝试的加上了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-webkit-transform: translateZ(0);</span><br><span class="line">transform: translateZ(0);</span><br></pre></td></tr></table></figure>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-webkit-transform: translateZ(0);</span><br><span class="line">transform: translateZ(0);</span><br></pre></td></tr></table></figure></div>
 <p>反复的测试，bug就真的解决了。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>一般关于css3动画性能优化有2个：</p>
 <blockquote>
@@ -451,9 +451,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/css/" rel="tag"><i class="fa fa-tag"></i> css</a>
-          
             <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/css/" rel="tag"><i class="fa fa-tag"></i> css</a>
           
             <a href="/tags/bug/" rel="tag"><i class="fa fa-tag"></i> bug</a>
           
