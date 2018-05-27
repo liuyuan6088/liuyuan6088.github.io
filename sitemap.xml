@@ -2,9 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://liuyuannb.com/2018/05/19/%E5%B0%81%E8%A3%85%E8%87%AA%E5%B7%B1%E7%9A%84jQuery/</loc>
+    <loc>http://liuyuannb.com/2018/05/26/requestAnimationFrame%E6%98%AF%E4%B8%AA%E5%95%A5/</loc>
     
-    <lastmod>2018-05-26T16:43:11.329Z</lastmod>
+    <lastmod>2018-05-27T05:01:35.304Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liuyuannb.com/2018/02/09/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/</loc>
+    
+    <lastmod>2018-05-26T16:48:53.745Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liuyuannb.com/2018/03/16/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%B8%E8%A7%81BUG%E6%94%B6%E9%9B%86/</loc>
+    
+    <lastmod>2018-05-26T16:48:49.787Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liuyuannb.com/2018/04/12/%E5%90%8E%E5%8F%B0%E5%A4%84%E7%90%86%E5%9B%BE%E7%89%87bs64%E6%A0%BC%E5%BC%8F/</loc>
+    
+    <lastmod>2018-05-26T16:48:40.002Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liuyuannb.com/2018/05/16/mpvue%E7%AE%80%E4%BB%8B/</loc>
+    
+    <lastmod>2018-05-26T16:48:17.138Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liuyuannb.com/2018/05/17/%E5%B0%81%E8%A3%85%E8%87%AA%E5%B7%B1%E7%9A%84jQuery/</loc>
+    
+    <lastmod>2018-05-26T16:47:59.058Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liuyuannb.com/2018/05/18/vue%E8%B4%AD%E7%89%A9%E8%BD%A6%E9%A3%9E%E5%85%A5%E6%95%88%E6%9E%9C/</loc>
+    
+    <lastmod>2018-05-26T16:47:44.020Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liuyuannb.com/2018/05/20/%E6%B5%85%E8%B0%88JS%E8%BF%9B%E7%A8%8B%E6%9C%BA%E5%88%B6%E5%92%8C%E7%BA%BF%E7%A8%8B/</loc>
+    
+    <lastmod>2018-05-26T16:47:33.445Z</lastmod>
     
   </url>
   
@@ -37,13 +86,6 @@
   </url>
   
   <url>
-    <loc>http://liuyuannb.com/2018/05/17/mpvue%E7%AE%80%E4%BB%8B/</loc>
-    
-    <lastmod>2018-05-26T16:39:43.514Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://liuyuannb.com/2018/01/12/js%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BB%A7%E6%89%BF/</loc>
     
     <lastmod>2018-05-26T16:39:42.254Z</lastmod>
@@ -72,44 +114,9 @@
   </url>
   
   <url>
-    <loc>http://liuyuannb.com/2018/05/09/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/</loc>
-    
-    <lastmod>2018-05-26T16:35:40.809Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liuyuannb.com/2018/05/22/%E6%B5%85%E8%B0%88JS%E8%BF%9B%E7%A8%8B%E6%9C%BA%E5%88%B6%E5%92%8C%E7%BA%BF%E7%A8%8B/</loc>
-    
-    <lastmod>2018-05-26T16:34:32.772Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liuyuannb.com/2018/05/26/requestAnimationFrame%E6%98%AF%E4%B8%AA%E5%95%A5/</loc>
-    
-    <lastmod>2018-05-26T16:13:41.276Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liuyuannb.com/2018/05/21/vue%E8%B4%AD%E7%89%A9%E8%BD%A6%E9%A3%9E%E5%85%A5%E6%95%88%E6%9E%9C/</loc>
-    
-    <lastmod>2018-05-21T15:41:40.064Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://liuyuannb.com/2018/05/15/%E4%B8%80%E4%B8%AA%E5%85%B3%E4%BA%8Efixed%E6%8A%96%E5%8A%A8%E7%9A%84bug/</loc>
     
     <lastmod>2018-05-15T12:50:02.188Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liuyuannb.com/2018/04/16/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%B8%E8%A7%81BUG%E6%94%B6%E9%9B%86/</loc>
-    
-    <lastmod>2018-05-14T15:14:06.876Z</lastmod>
     
   </url>
   
@@ -145,13 +152,6 @@
     <loc>http://liuyuannb.com/board/index.html</loc>
     
     <lastmod>2018-05-14T11:29:35.197Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liuyuannb.com/2018/05/12/%E5%90%8E%E5%8F%B0%E5%A4%84%E7%90%86%E5%9B%BE%E7%89%87bs64%E6%A0%BC%E5%BC%8F/</loc>
-    
-    <lastmod>2018-05-14T06:11:11.608Z</lastmod>
     
   </url>
   

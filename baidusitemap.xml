@@ -4,14 +4,176 @@
 
     
   <url>
-    <loc>http://liuyuannb.com/2018/05/19/%E5%B0%81%E8%A3%85%E8%87%AA%E5%B7%B1%E7%9A%84jQuery/</loc>
-    <lastmod>2018-05-26T16:43:11.329Z</lastmod>
+    <loc>http://liuyuannb.com/2018/05/26/requestAnimationFrame%E6%98%AF%E4%B8%AA%E5%95%A5/</loc>
+    <lastmod>2018-05-27T05:01:35.304Z</lastmod>
+    <data>
+        <display>
+        <title>requestAnimationFrame是个啥</title>
+        <pubTime>2018-05-26T15:19:44.000Z</pubTime>
+        
+        <tag>js</tag>
+         
+        <tag>H5</tag>
+         
+         
+           
+             
+              <breadCrumb title="js" url="http://liuyuannb.com/categories/js/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://liuyuannb.com/2018/02/09/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/</loc>
+    <lastmod>2018-05-26T16:48:53.745Z</lastmod>
+    <data>
+        <display>
+        <title>移动端开发知识汇总</title>
+        <pubTime>2018-02-09T15:49:44.000Z</pubTime>
+        
+        <tag>js</tag>
+         
+        <tag>总结</tag>
+         
+        <tag>移动端</tag>
+         
+         
+           
+             
+              <breadCrumb title="移动端" url="http://liuyuannb.com/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://liuyuannb.com/2018/03/16/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%B8%E8%A7%81BUG%E6%94%B6%E9%9B%86/</loc>
+    <lastmod>2018-05-26T16:48:49.787Z</lastmod>
+    <data>
+        <display>
+        <title>移动端常见BUG收集</title>
+        <pubTime>2018-03-16T11:47:44.000Z</pubTime>
+        
+        <tag>js</tag>
+         
+        <tag>bug</tag>
+         
+        <tag>移动端</tag>
+         
+         
+           
+             
+              <breadCrumb title="移动端" url="http://liuyuannb.com/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://liuyuannb.com/2018/04/12/%E5%90%8E%E5%8F%B0%E5%A4%84%E7%90%86%E5%9B%BE%E7%89%87bs64%E6%A0%BC%E5%BC%8F/</loc>
+    <lastmod>2018-05-26T16:48:40.002Z</lastmod>
+    <data>
+        <display>
+        <title>后台处理图片bs64格式</title>
+        <pubTime>2018-04-12T08:47:44.000Z</pubTime>
+        
+        <tag>vue</tag>
+         
+        <tag>node</tag>
+         
+         
+           
+             
+              <breadCrumb title="node" url="http://liuyuannb.com/categories/node/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://liuyuannb.com/2018/05/16/mpvue%E7%AE%80%E4%BB%8B/</loc>
+    <lastmod>2018-05-26T16:48:17.138Z</lastmod>
+    <data>
+        <display>
+        <title>mpvue简介</title>
+        <pubTime>2018-05-16T12:19:44.000Z</pubTime>
+        
+        <tag>vue</tag>
+         
+        <tag>js</tag>
+         
+         
+           
+             
+              <breadCrumb title="vue" url="http://liuyuannb.com/categories/vue/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://liuyuannb.com/2018/05/17/%E5%B0%81%E8%A3%85%E8%87%AA%E5%B7%B1%E7%9A%84jQuery/</loc>
+    <lastmod>2018-05-26T16:47:59.058Z</lastmod>
     <data>
         <display>
         <title>封装自己的jQuery</title>
-        <pubTime>2018-05-19T11:47:44.000Z</pubTime>
+        <pubTime>2018-05-17T11:47:44.000Z</pubTime>
         
         <tag>js</tag>
+         
+         
+           
+             
+              <breadCrumb title="js" url="http://liuyuannb.com/categories/js/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://liuyuannb.com/2018/05/18/vue%E8%B4%AD%E7%89%A9%E8%BD%A6%E9%A3%9E%E5%85%A5%E6%95%88%E6%9E%9C/</loc>
+    <lastmod>2018-05-26T16:47:44.020Z</lastmod>
+    <data>
+        <display>
+        <title>vue购物车飞入效果</title>
+        <pubTime>2018-05-18T14:19:44.000Z</pubTime>
+        
+        <tag>vue</tag>
+         
+        <tag>js</tag>
+         
+        <tag>demo</tag>
+         
+         
+           
+             
+              <breadCrumb title="vue" url="http://liuyuannb.com/categories/vue/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://liuyuannb.com/2018/05/20/%E6%B5%85%E8%B0%88JS%E8%BF%9B%E7%A8%8B%E6%9C%BA%E5%88%B6%E5%92%8C%E7%BA%BF%E7%A8%8B/</loc>
+    <lastmod>2018-05-26T16:47:33.445Z</lastmod>
+    <data>
+        <display>
+        <title>浅谈JS进程机制和线程</title>
+        <pubTime>2018-05-20T02:17:44.000Z</pubTime>
+        
+        <tag>js</tag>
+         
+        <tag>原理</tag>
+         
+        <tag>进程</tag>
          
          
            
@@ -77,9 +239,9 @@
         
         <tag>js</tag>
          
-        <tag>react</tag>
-         
         <tag>总结</tag>
+         
+        <tag>react</tag>
          
          
            
@@ -100,28 +262,6 @@
         <pubTime>2018-05-01T06:47:44.000Z</pubTime>
         
         <tag>vue</tag>
-         
-         
-           
-             
-              <breadCrumb title="vue" url="http://liuyuannb.com/categories/vue/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://liuyuannb.com/2018/05/17/mpvue%E7%AE%80%E4%BB%8B/</loc>
-    <lastmod>2018-05-26T16:39:43.514Z</lastmod>
-    <data>
-        <display>
-        <title>mpvue简介</title>
-        <pubTime>2018-05-17T12:19:44.000Z</pubTime>
-        
-        <tag>vue</tag>
-         
-        <tag>js</tag>
          
          
            
@@ -214,100 +354,6 @@
 
     
   <url>
-    <loc>http://liuyuannb.com/2018/05/09/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/</loc>
-    <lastmod>2018-05-26T16:35:40.809Z</lastmod>
-    <data>
-        <display>
-        <title>移动端开发知识汇总</title>
-        <pubTime>2018-05-09T15:49:44.000Z</pubTime>
-        
-        <tag>js</tag>
-         
-        <tag>总结</tag>
-         
-        <tag>移动端</tag>
-         
-         
-           
-             
-              <breadCrumb title="移动端" url="http://liuyuannb.com/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://liuyuannb.com/2018/05/22/%E6%B5%85%E8%B0%88JS%E8%BF%9B%E7%A8%8B%E6%9C%BA%E5%88%B6%E5%92%8C%E7%BA%BF%E7%A8%8B/</loc>
-    <lastmod>2018-05-26T16:34:32.772Z</lastmod>
-    <data>
-        <display>
-        <title>浅谈JS进程机制和线程</title>
-        <pubTime>2018-05-22T02:17:44.000Z</pubTime>
-        
-        <tag>js</tag>
-         
-        <tag>原理</tag>
-         
-        <tag>进程</tag>
-         
-         
-           
-             
-              <breadCrumb title="js" url="http://liuyuannb.com/categories/js/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://liuyuannb.com/2018/05/26/requestAnimationFrame%E6%98%AF%E4%B8%AA%E5%95%A5/</loc>
-    <lastmod>2018-05-26T16:13:41.276Z</lastmod>
-    <data>
-        <display>
-        <title>requestAnimationFrame是个啥</title>
-        <pubTime>2018-05-26T15:19:44.000Z</pubTime>
-        
-        <tag>js</tag>
-         
-        <tag>H5</tag>
-         
-         
-           
-             
-              <breadCrumb title="js" url="http://liuyuannb.com/categories/js/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://liuyuannb.com/2018/05/21/vue%E8%B4%AD%E7%89%A9%E8%BD%A6%E9%A3%9E%E5%85%A5%E6%95%88%E6%9E%9C/</loc>
-    <lastmod>2018-05-21T15:41:40.064Z</lastmod>
-    <data>
-        <display>
-        <title>vue购物车飞入效果</title>
-        <pubTime>2018-05-21T14:19:44.000Z</pubTime>
-        
-        <tag>vue</tag>
-         
-        <tag>js</tag>
-         
-        <tag>demo</tag>
-         
-         
-           
-             
-              <breadCrumb title="vue" url="http://liuyuannb.com/categories/vue/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://liuyuannb.com/2018/05/15/%E4%B8%80%E4%B8%AA%E5%85%B3%E4%BA%8Efixed%E6%8A%96%E5%8A%A8%E7%9A%84bug/</loc>
     <lastmod>2018-05-15T12:50:02.188Z</lastmod>
     <data>
@@ -315,9 +361,9 @@
         <title>一个关于fixed抖动的bug</title>
         <pubTime>2018-05-15T01:11:44.000Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>css</tag>
+         
+        <tag>js</tag>
          
         <tag>bug</tag>
          
@@ -331,56 +377,10 @@
     </url>
 
     
-  <url>
-    <loc>http://liuyuannb.com/2018/04/16/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%B8%E8%A7%81BUG%E6%94%B6%E9%9B%86/</loc>
-    <lastmod>2018-05-14T15:14:06.876Z</lastmod>
-    <data>
-        <display>
-        <title>移动端常见BUG收集</title>
-        <pubTime>2018-04-16T11:47:44.000Z</pubTime>
-        
-        <tag>js</tag>
-         
-        <tag>bug</tag>
-         
-        <tag>移动端</tag>
-         
-         
-           
-             
-              <breadCrumb title="移动端" url="http://liuyuannb.com/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
     
     
     
     
-    
-    
-  <url>
-    <loc>http://liuyuannb.com/2018/05/12/%E5%90%8E%E5%8F%B0%E5%A4%84%E7%90%86%E5%9B%BE%E7%89%87bs64%E6%A0%BC%E5%BC%8F/</loc>
-    <lastmod>2018-05-14T06:11:11.608Z</lastmod>
-    <data>
-        <display>
-        <title>后台处理图片bs64格式</title>
-        <pubTime>2018-05-12T08:47:44.000Z</pubTime>
-        
-        <tag>vue</tag>
-         
-        <tag>node</tag>
-         
-         
-           
-             
-              <breadCrumb title="node" url="http://liuyuannb.com/categories/node/"/>
-          
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>http://liuyuannb.com/2018/03/21/%E5%B0%81%E8%A3%85%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E7%BC%93%E5%8A%A8%E5%8A%A8%E7%94%BB/</loc>
