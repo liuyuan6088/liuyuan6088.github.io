@@ -91,7 +91,7 @@
 <meta property="og:description" content="我的react16+工作中使用 react 已有很长时间啦，总结下从 React16.0 后新加的一些特性，其实16.0的各功能点是多个版本陆陆续续迭代增加的～列举一些常用，实用的，完整的请点击github.react 预览 React v16.0  render 支持返回数组和字符串 支持自定义 DOM 属性 减少文件体积   React v16.3  createContext createR">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/2/28/169333ec79b209ce?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:updated_time" content="2019-03-01T14:04:39.355Z">
+<meta property="og:updated_time" content="2019-03-01T14:07:26.091Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我的react16+">
 <meta name="twitter:description" content="我的react16+工作中使用 react 已有很长时间啦，总结下从 React16.0 后新加的一些特性，其实16.0的各功能点是多个版本陆陆续续迭代增加的～列举一些常用，实用的，完整的请点击github.react 预览 React v16.0  render 支持返回数组和字符串 支持自定义 DOM 属性 减少文件体积   React v16.3  createContext createR">
@@ -489,7 +489,7 @@
 <p>renderProps</p>
 <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Toggle initial=&#123;<span class="literal">false</span>&#125;&gt;</span><br><span class="line">      &#123;(&#123; on, toggle &#125;) =&gt; (</span><br><span class="line">        &lt;Button type=<span class="string">"primary"</span> onClick=&#123;toggle&#125;&gt; Open Modal &lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">        &lt;Modal visible=&#123;on&#125; onOk=&#123;toggle&#125; onCancel=&#123;toggle&#125; /</span>&gt;</span><br><span class="line">      )&#125;</span><br><span class="line">    &lt;<span class="regexp">/Toggle&gt;</span></span><br><span class="line"><span class="regexp">  )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></div>
 <p>React Hooks</p>
-<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [open, setOpen] = useState(<span class="literal">false</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;Button type=<span class="string">"primary"</span> onClick=&#123;() =&gt; setOpen(<span class="literal">true</span>)&#125;&gt;</span><br><span class="line">        Open Modal</span><br><span class="line">      &lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">      &lt;Modal</span></span><br><span class="line"><span class="regexp">        visible=&#123;open&#125;</span></span><br><span class="line"><span class="regexp">        onOk=&#123;() =&gt; setOpen(false)&#125;</span></span><br><span class="line"><span class="regexp">        onCancel=&#123;() =&gt; setOpen(false)&#125;</span></span><br><span class="line"><span class="regexp">      /</span>&gt;</span><br><span class="line">    &lt;<span class="regexp">/&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></div>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [open, setOpen] = useState(<span class="literal">false</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;Button type=<span class="string">"primary"</span> onClick=&#123;() =&gt; setOpen(<span class="literal">true</span>)&#125;&gt;</span><br><span class="line">        Open Modal</span><br><span class="line">      &lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">      &lt;Modal</span></span><br><span class="line"><span class="regexp">        visible=&#123;open&#125;</span></span><br><span class="line"><span class="regexp">        onOk=&#123;() =&gt; setOpen(false)&#125;</span></span><br><span class="line"><span class="regexp">        onCancel=&#123;() =&gt; setOpen(false)&#125;</span></span><br><span class="line"><span class="regexp">      /</span>&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></div>
 <p><a href="https://reactjs.org/docs/hooks-intro.html" target="_blank" rel="noopener">https://reactjs.org/docs/hooks-intro.html</a></p>
 <p>嘿嘿！</p>
 
@@ -551,6 +551,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/01/es6代理/" rel="prev" title="es6代理 defineProperty 与 proxy">
+                es6代理 defineProperty 与 proxy <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -636,7 +640,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -647,7 +651,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -658,7 +662,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="http://p8phnirb4.bkt.clouddn.com/bitbug_favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="http://p8phnirb4.bkt.clouddn.com/bitbug_favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="es6,原理," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前沿我们或多或少都听过“数据绑定”这个词，“数据绑定”的关键在于监听数据的变化，可是对于这样一个对象：var obj = {value: 1}，我们该怎么知道 obj 发生了改变呢？ definePropetyES5 提供了 Object.defineProperty 方法，该方法可以在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回这个对象。 语法Object.definePrope">
+<meta name="keywords" content="es6,原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="es6代理 defineProperty 与 proxy">
+<meta property="og:url" content="http://liuyuannb.com/2019/03/01/es6代理/index.html">
+<meta property="og:site_name" content="刘源的博客">
+<meta property="og:description" content="前沿我们或多或少都听过“数据绑定”这个词，“数据绑定”的关键在于监听数据的变化，可是对于这样一个对象：var obj = {value: 1}，我们该怎么知道 obj 发生了改变呢？ definePropetyES5 提供了 Object.defineProperty 方法，该方法可以在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回这个对象。 语法Object.definePrope">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-01T14:26:44.216Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="es6代理 defineProperty 与 proxy">
+<meta name="twitter:description" content="前沿我们或多或少都听过“数据绑定”这个词，“数据绑定”的关键在于监听数据的变化，可是对于这样一个对象：var obj = {value: 1}，我们该怎么知道 obj 发生了改变呢？ definePropetyES5 提供了 Object.defineProperty 方法，该方法可以在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回这个对象。 语法Object.definePrope">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://liuyuannb.com/2019/03/01/es6代理/"/>
+
+
+
+
+
+  <title>es6代理 defineProperty 与 proxy | 刘源的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/liuyuan6088"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">刘源的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习使我快乐，真J2bang！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-留言板">
+          <a href="/board" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://liuyuannb.com/2019/03/01/es6代理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘源">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pno1etuve.bkt.clouddn.com/avater.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="刘源的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">es6代理 defineProperty 与 proxy</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-01T21:54:44+08:00">
+                2019-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/es6/" itemprop="url" rel="index">
+                    <span itemprop="name">es6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          <span id="busuanzi_container_page_pv">
+ &nbsp; | &nbsp; 热度&nbsp; <span id="busuanzi_value_page_pv"></span>°C
+ </span>
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2019/03/01/es6代理/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2019/03/01/es6代理/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2019/03/01/es6代理/" class="leancloud_visitors" data-flag-title="es6代理 defineProperty 与 proxy">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前沿"><a href="#前沿" class="headerlink" title="前沿"></a>前沿</h1><p>我们或多或少都听过“数据绑定”这个词，“数据绑定”的关键在于监听数据的变化，可是对于这样一个对象：<code>var obj = {value: 1}</code>，我们该怎么知道 <code>obj</code> 发生了改变呢？</p>
+<h2 id="definePropety"><a href="#definePropety" class="headerlink" title="definePropety"></a>definePropety</h2><p>ES5 提供了 <code>Object.defineProperty</code> 方法，该方法可以在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回这个对象。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p><strong>Object.defineProperty(obj, prop, descriptor)</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">"num"</span>, &#123;</span><br><span class="line">    value : <span class="number">1</span>, <span class="comment">// 该属性对应的值。可以是任何有效的 JavaScript 值（数值，对象，函数等）。默认为 undefined。</span></span><br><span class="line">    writable : <span class="literal">true</span>, <span class="comment">// 当且仅当该属性的 writable 为 true 时，该属性才能被赋值运算符改变。默认为 false。</span></span><br><span class="line">    enumerable : <span class="literal">true</span>, <span class="comment">// 当且仅当该属性的 enumerable 为 true 时，该属性才能够出现在对象的枚举属性中。默认为 false</span></span><br><span class="line">    configurable : <span class="literal">true</span> <span class="comment">// 当且仅当该属性的 configurable 为 true 时，该属性描述符才能够被改变，也能够被删除。默认为 false</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//  对象 obj 拥有属性 num，值为 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 不同的情况</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(&#123;&#125;, <span class="string">"num"</span>, &#123;</span><br><span class="line">    value: <span class="number">1</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    enumerable: <span class="literal">true</span>,</span><br><span class="line">    configurable: <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> value = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(&#123;&#125;, <span class="string">"num"</span>, &#123;</span><br><span class="line">    get : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> value;</span><br><span class="line">    &#125;,</span><br><span class="line">    set : <span class="function"><span class="keyword">function</span>(<span class="params">newValue</span>)</span>&#123;</span><br><span class="line">      value = newValue;</span><br><span class="line">    &#125;,</span><br><span class="line">    enumerable : <span class="literal">true</span>,</span><br><span class="line">    configurable : <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 不可以</span></span><br><span class="line"><span class="comment">// 报错</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(&#123;&#125;, <span class="string">"num"</span>, &#123;</span><br><span class="line">    value: <span class="number">1</span>,</span><br><span class="line">    get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></div>
+<h2 id="Setters-和-Getters"><a href="#Setters-和-Getters" class="headerlink" title="Setters 和 Getters"></a>Setters 和 Getters</h2><p>之所以讲到 <code>defineProperty</code>，是因为我们要使用存取描述符中的 get 和 set，这两个方法又被称为 getter 和 setter。由 getter 和 setter 定义的属性称做”存取器属性“。</p>
+<p>当程序查询存取器属性的值时，<code>JavaScript</code> 调用 getter方法。这个方法的返回值就是属性存取表达式的值。当程序设置一个存取器属性的值时，JavaScript 调用 setter 方法，将赋值表达式右侧的值当做参数传入 setter。从某种意义上讲，这个方法负责“设置”属性值。可以忽略 setter 方法的返回值。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Archiver</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> value = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">// archive n. 档案</span></span><br><span class="line">    <span class="keyword">var</span> archive = [];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(<span class="keyword">this</span>, <span class="string">'num'</span>, &#123;</span><br><span class="line">        get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'执行了 get 操作'</span>)</span><br><span class="line">            <span class="keyword">return</span> value;</span><br><span class="line">        &#125;,</span><br><span class="line">        set: <span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'执行了 set 操作'</span>)</span><br><span class="line">            value = value;</span><br><span class="line">            archive.push(&#123; <span class="attr">val</span>: value &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.getArchive = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> archive; &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arc = <span class="keyword">new</span> Archiver();</span><br><span class="line">arc.num; <span class="comment">// 执行了 get 操作</span></span><br><span class="line">arc.num = <span class="number">11</span>; <span class="comment">// 执行了 set 操作</span></span><br><span class="line">arc.num = <span class="number">13</span>; <span class="comment">// 执行了 set 操作</span></span><br><span class="line"><span class="built_in">console</span>.log(arc.getArchive()); <span class="comment">// [&#123; val: 11 &#125;, &#123; val: 13 &#125;]</span></span><br></pre></td></tr></table></figure></div>
+<h2 id="watch-API"><a href="#watch-API" class="headerlink" title="watch API"></a>watch API</h2><p>既然可以监控数据的改变，那我可以这样设想，即当数据改变的时候，自动进行渲染工作。举个例子：<br><code>HTML</code> 中有个 <code>span</code> 标签和 <code>button</code> 标签</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;span id=<span class="string">"container"</span>&gt;<span class="number">1</span>&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">&lt;button id="button"&gt;点击加 1&lt;/</span>button&gt;</span><br></pre></td></tr></table></figure></div>
+<p>复制代码当点击按钮的时候，<code>span</code> 标签里的值加 1。<br>传统的做法是：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'button'</span>).addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> container = <span class="built_in">document</span>.getElementById(<span class="string">"container"</span>);</span><br><span class="line">    container.innerHTML = <span class="built_in">Number</span>(container.innerHTML) + <span class="number">1</span>;</span><br><span class="line">&#125;);</span><br><span class="line">复制代码如果使用了 defineProperty：</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    value: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 储存 obj.value 的值</span></span><br><span class="line"><span class="keyword">var</span> value = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">"value"</span>, &#123;</span><br><span class="line">    get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;,</span><br><span class="line">    set: <span class="function"><span class="keyword">function</span>(<span class="params">newValue</span>) </span>&#123;</span><br><span class="line">        value = newValue;</span><br><span class="line">        <span class="built_in">document</span>.getElementById(<span class="string">'container'</span>).innerHTML = newValue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'button'</span>).addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    obj.value += <span class="number">1</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></div>
+<p>复制代码代码看似增多了，但是当我们需要改变 <code>span</code> 标签里的值的时候，直接修改 <code>obj.value</code> 的值就可以了。<br>然而，现在的写法，我们还需要单独声明一个变量存储 <code>obj.value</code> 的值，因为如果你在 set 中直接 <code>obj.value = newValue</code> 就会陷入无限的循环中。此外，我们可能需要监控很多属性值的改变，要是一个一个写，也很累呐，所以我们简单写个 watch 函数。使用效果如下：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    value: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">watch(obj, <span class="string">"value"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">newvalue</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'container'</span>).innerHTML = newvalue;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'button'</span>).addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    obj.value += <span class="number">1</span></span><br><span class="line">&#125;);</span><br><span class="line">复制代码我们来写下这个 watch 函数：</span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> root = <span class="keyword">this</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">watch</span>(<span class="params">obj, name, func</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> value = obj[name];</span><br><span class="line"></span><br><span class="line">        <span class="built_in">Object</span>.defineProperty(obj, name, &#123;</span><br><span class="line">            get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> value;</span><br><span class="line">            &#125;,</span><br><span class="line">            set: <span class="function"><span class="keyword">function</span>(<span class="params">newValue</span>) </span>&#123;</span><br><span class="line">                value = newValue;</span><br><span class="line">                func(value)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (value) obj[name] = value</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.watch = watch;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure></div>
+<p>复制代码现在我们已经可以监控对象属性值的改变，并且可以根据属性值的改变，添加回调函数，棒棒哒~</p>
+<h2 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h2><p>使用 <code>defineProperty</code> 只能重定义属性的读取（<code>get</code>）和设置（<code>set</code>）行为，到了 ES6，提供了 <code>Proxy</code>，可以重定义更多的行为，比如 <code>in、delete</code>、函数调用等更多行为。</p>
+<p><code>Proxy</code> 这个词的原意是代理，用在这里表示由它来“代理”某些操作，ES6 原生提供 <code>Proxy</code>构造函数，用来生成 <code>Proxy</code> 实例。我们来看看它的语法：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handler);</span><br></pre></td></tr></table></figure></div>
+<p>复制代码<code>proxy</code> 对象的所有用法，都是上面这种形式，不同的只是handler参数的写法。其中，<code>new Proxy()</code>表示生成一个<code>Proxy</code>实例，<code>target</code>参数表示所要拦截的目标对象，<code>handler</code>参数也是一个对象，用来定制拦截行为。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(&#123;&#125;, &#123;</span><br><span class="line">    get: <span class="function"><span class="keyword">function</span>(<span class="params">obj, prop</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'设置 get 操作'</span>)</span><br><span class="line">        <span class="keyword">return</span> obj[prop];</span><br><span class="line">    &#125;,</span><br><span class="line">    set: <span class="function"><span class="keyword">function</span>(<span class="params">obj, prop, value</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'设置 set 操作'</span>)</span><br><span class="line">        obj[prop] = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">proxy.time = <span class="number">35</span>; <span class="comment">// 设置 set 操作</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(proxy.time); <span class="comment">// 设置 get 操作 // 35</span></span><br></pre></td></tr></table></figure></div>
+<p>复制代码除了 <code>get</code> 和 <code>set</code> 之外，<code>proxy</code> 可以拦截多达 <code>13</code> 种操作，比如 <code>has(target, propKey)</code>，可以拦截 <code>propKey in proxy</code> 的操作，返回一个布尔值。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 has 方法隐藏某些属性，不被 in 运算符发现</span></span><br><span class="line"><span class="keyword">var</span> handler = &#123;</span><br><span class="line">  has (target, key) &#123;</span><br><span class="line">    <span class="keyword">if</span> (key[<span class="number">0</span>] === <span class="string">'_'</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> key <span class="keyword">in</span> target;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> target = &#123; <span class="attr">_prop</span>: <span class="string">'foo'</span>, <span class="attr">prop</span>: <span class="string">'foo'</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handler);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'_prop'</span> <span class="keyword">in</span> proxy); <span class="comment">// false</span></span><br></pre></td></tr></table></figure></div>
+<p>复制代码又比如说 <code>apply</code> 方法拦截函数的调用、<code>call</code> 和 <code>apply</code> 操作。<br><code>apply</code>方法可以接受三个参数，分别是目标对象、目标对象的上下文对象（<code>this</code>）和目标对象的参数数组，不过这里我们简单演示一下：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> target = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="string">'I am the target'</span>; &#125;;</span><br><span class="line"><span class="keyword">var</span> handler = &#123;</span><br><span class="line">  apply: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'I am the proxy'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handler);</span><br><span class="line"></span><br><span class="line">p();</span><br><span class="line"><span class="comment">// "I am the proxy"</span></span><br></pre></td></tr></table></figure></div>
+<p>复制代码又比如说 <code>ownKeys</code> 方法可以拦截对象自身属性的读取操作。具体来说，拦截以下操作：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.getOwnPropertyNames()</span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertySymbols()</span><br><span class="line"><span class="built_in">Object</span>.keys()</span><br></pre></td></tr></table></figure></div>
+<p>下面的例子是拦截第一个字符为下划线的属性名，不让它被 <code>for of</code> 遍历到。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> target = &#123;</span><br><span class="line">  _bar: <span class="string">'foo'</span>,</span><br><span class="line">  _prop: <span class="string">'bar'</span>,</span><br><span class="line">  prop: <span class="string">'baz'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> handler = &#123;</span><br><span class="line">  ownKeys (target) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.ownKeys(target).filter(<span class="function"><span class="params">key</span> =&gt;</span> key[<span class="number">0</span>] !== <span class="string">'_'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handler);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">of</span> <span class="built_in">Object</span>.keys(proxy)) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(target[key]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// "baz"</span></span><br></pre></td></tr></table></figure></div>
+<p>复制代码更多的拦截行为可以查看阮一峰老师的 <code>《ECMAScript 6 入门》</code><br>值得注意的是，<code>proxy</code> 的最大问题在于浏览器支持度不够，而且很多效果无法使用 <code>poilyfill</code> 来弥补。</p>
+<p>我们使用 <code>proxy</code> 再来写一下 <code>watch</code> 函数。使用效果如下：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> root = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">watch</span>(<span class="params">target, func</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, &#123;</span><br><span class="line">            get: <span class="function"><span class="keyword">function</span>(<span class="params">target, prop</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> target[prop];</span><br><span class="line">            &#125;,</span><br><span class="line">            set: <span class="function"><span class="keyword">function</span>(<span class="params">target, prop, value</span>) </span>&#123;</span><br><span class="line">                target[prop] = value;</span><br><span class="line">                func(prop, value);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> proxy;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.watch = watch;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    value: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newObj = watch(obj, <span class="function"><span class="keyword">function</span>(<span class="params">key, newvalue</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (key == <span class="string">'value'</span>) <span class="built_in">document</span>.getElementById(<span class="string">'container'</span>).innerHTML = newvalue;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'button'</span>).addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    newObj.value += <span class="number">1</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></div>
+<p>复制代码我们也可以发现，使用 <code>defineProperty</code> 和 <code>proxy</code> 的区别，当使用 <code>defineProperty</code>，我们修改原来的 <code>obj</code> 对象就可以触发拦截，而使用 <code>proxy</code>，就必须修改代理对象，即 <code>Proxy</code> 的实例才可以触发拦截。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>小生磕头感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/es6/" rel="tag"><i class="fa fa-tag"></i> es6</a>
+          
+            <a href="/tags/原理/" rel="tag"><i class="fa fa-tag"></i> 原理</a>
+          
+        </div>
+      
+
+    
+        <div class="copyright" style="clear:both;">
+           <p><span>本文标题:</span><a href="/2019/03/01/es6代理/">es6代理 defineProperty 与 proxy</a></p>
+           <p><span>文章作者:</span><a href="/" title="访问 刘源 的个人博客">刘源</a></p>
+           <p><span>原始链接:</span><a href="/2019/03/01/es6代理/" title="es6代理 defineProperty 与 proxy">http://liuyuannb.com/2019/03/01/es6代理/</a></p>
+           <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" title="Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)">Attribution-NonCommercial 4.0</a></p>
+           <p><span>若转载，请留以上信息，谢谢合作</span></p>
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/26/我的react16+/" rel="next" title="我的react16+">
+                <i class="fa fa-chevron-left"></i> 我的react16+
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://pno1etuve.bkt.clouddn.com/avater.jpeg"
+                alt="刘源" />
+            
+              <p class="site-author-name" itemprop="name">刘源</p>
+              <p class="site-description motion-element" itemprop="description">技术和生活，我融为一体。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/liuyuan6088" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://twitter.com" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://blog.csdn.net" target="_blank" title="csdn">
+                      
+                        <i class="fa fa-fw fa-crosshairs"></i>csdn</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.imooc.com/" title="慕课网" target="_blank">慕课网</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://cn.vuejs.org/v2/api/" title="vue" target="_blank">vue</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前沿"><span class="nav-number">1.</span> <span class="nav-text">前沿</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#definePropety"><span class="nav-number">1.1.</span> <span class="nav-text">definePropety</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">1.1.1.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Setters-和-Getters"><span class="nav-number">1.2.</span> <span class="nav-text">Setters 和 Getters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#watch-API"><span class="nav-number">1.3.</span> <span class="nav-text">watch API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#proxy"><span class="nav-number">1.4.</span> <span class="nav-text">proxy</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘源</span>
+
+  
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+  <span>欢迎您的到来</span>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytC7RHU8';
+      var conf = '7cd0b3d5cdff777b5ebc65a1340c4a09';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KmzKeieM80Shp1zRzh3541wM-gzGzoHsz", "rhp2TmnkxPuq6oxcLAITqprh");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/"});</script></body>
+</html>
+<!-- 页面点击小红心undefined -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script type="text/javascript" src="/js/src/myly.js"></script>
