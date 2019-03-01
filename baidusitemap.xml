@@ -6,7 +6,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/05/27/hexo%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%E7%BE%8E%E5%8C%96/</loc>
-    <lastmod>2018-05-27T08:12:05.266Z</lastmod>
+    <lastmod>2018-05-27T08:12:04.000Z</lastmod>
     <data>
         <display>
         <title>hexo代码片段美化</title>
@@ -26,7 +26,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/05/26/requestAnimationFrame%E6%98%AF%E4%B8%AA%E5%95%A5/</loc>
-    <lastmod>2018-05-27T05:55:24.334Z</lastmod>
+    <lastmod>2018-05-27T05:55:24.000Z</lastmod>
     <data>
         <display>
         <title>requestAnimationFrame是个啥</title>
@@ -48,7 +48,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/02/09/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/</loc>
-    <lastmod>2018-05-26T16:48:53.745Z</lastmod>
+    <lastmod>2018-05-26T16:48:52.000Z</lastmod>
     <data>
         <display>
         <title>移动端开发知识汇总</title>
@@ -72,7 +72,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/03/16/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%B8%E8%A7%81BUG%E6%94%B6%E9%9B%86/</loc>
-    <lastmod>2018-05-26T16:48:49.787Z</lastmod>
+    <lastmod>2018-05-26T16:48:48.000Z</lastmod>
     <data>
         <display>
         <title>移动端常见BUG收集</title>
@@ -96,7 +96,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/04/12/%E5%90%8E%E5%8F%B0%E5%A4%84%E7%90%86%E5%9B%BE%E7%89%87bs64%E6%A0%BC%E5%BC%8F/</loc>
-    <lastmod>2018-05-26T16:48:40.002Z</lastmod>
+    <lastmod>2018-05-26T16:48:40.000Z</lastmod>
     <data>
         <display>
         <title>后台处理图片bs64格式</title>
@@ -118,15 +118,15 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/05/16/mpvue%E7%AE%80%E4%BB%8B/</loc>
-    <lastmod>2018-05-26T16:48:17.138Z</lastmod>
+    <lastmod>2018-05-26T16:48:16.000Z</lastmod>
     <data>
         <display>
         <title>mpvue简介</title>
         <pubTime>2018-05-16T12:19:44.000Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>vue</tag>
+         
+        <tag>js</tag>
          
          
            
@@ -140,7 +140,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/05/17/%E5%B0%81%E8%A3%85%E8%87%AA%E5%B7%B1%E7%9A%84jQuery/</loc>
-    <lastmod>2018-05-26T16:47:59.058Z</lastmod>
+    <lastmod>2018-05-26T16:47:58.000Z</lastmod>
     <data>
         <display>
         <title>封装自己的jQuery</title>
@@ -160,15 +160,15 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/05/18/vue%E8%B4%AD%E7%89%A9%E8%BD%A6%E9%A3%9E%E5%85%A5%E6%95%88%E6%9E%9C/</loc>
-    <lastmod>2018-05-26T16:47:44.020Z</lastmod>
+    <lastmod>2018-05-26T16:47:44.000Z</lastmod>
     <data>
         <display>
         <title>vue购物车飞入效果</title>
         <pubTime>2018-05-18T14:19:44.000Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>vue</tag>
+         
+        <tag>js</tag>
          
         <tag>demo</tag>
          
@@ -184,7 +184,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/05/20/%E6%B5%85%E8%B0%88JS%E8%BF%9B%E7%A8%8B%E6%9C%BA%E5%88%B6%E5%92%8C%E7%BA%BF%E7%A8%8B/</loc>
-    <lastmod>2018-05-26T16:47:33.445Z</lastmod>
+    <lastmod>2018-05-26T16:47:32.000Z</lastmod>
     <data>
         <display>
         <title>浅谈JS进程机制和线程</title>
@@ -208,15 +208,15 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/05/07/vuex%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2018-05-26T16:42:43.297Z</lastmod>
+    <lastmod>2018-05-26T16:42:42.000Z</lastmod>
     <data>
         <display>
         <title>vuex笔记</title>
         <pubTime>2018-05-07T15:19:44.000Z</pubTime>
         
-        <tag>js</tag>
-         
         <tag>vue</tag>
+         
+        <tag>js</tag>
          
         <tag>总结</tag>
          
@@ -232,7 +232,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/05/08/robot%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
-    <lastmod>2018-05-26T16:42:02.408Z</lastmod>
+    <lastmod>2018-05-26T16:42:02.000Z</lastmod>
     <data>
         <display>
         <title>聊天机器人小程序</title>
@@ -252,7 +252,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/04/06/react%E5%AD%A6%E4%B9%A0%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/</loc>
-    <lastmod>2018-05-26T16:41:31.765Z</lastmod>
+    <lastmod>2018-05-26T16:41:30.000Z</lastmod>
     <data>
         <display>
         <title>react学习知识点汇总</title>
@@ -260,9 +260,9 @@
         
         <tag>js</tag>
          
-        <tag>react</tag>
-         
         <tag>总结</tag>
+         
+        <tag>react</tag>
          
          
            
@@ -276,7 +276,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/05/01/vue%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0demo/</loc>
-    <lastmod>2018-05-26T16:41:19.280Z</lastmod>
+    <lastmod>2018-05-26T16:41:18.000Z</lastmod>
     <data>
         <display>
         <title>vue图片上传demo</title>
@@ -296,7 +296,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/01/12/js%E7%9A%84%E5%87%A0%E7%A7%8D%E7%BB%A7%E6%89%BF/</loc>
-    <lastmod>2018-05-26T16:39:42.254Z</lastmod>
+    <lastmod>2018-05-26T16:39:42.000Z</lastmod>
     <data>
         <display>
         <title>js的几种继承</title>
@@ -316,7 +316,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2017/11/05/%E5%B0%81%E8%A3%85%E8%BD%AE%E6%92%AD/</loc>
-    <lastmod>2018-05-26T16:39:40.857Z</lastmod>
+    <lastmod>2018-05-26T16:39:40.000Z</lastmod>
     <data>
         <display>
         <title>封装轮播</title>
@@ -336,7 +336,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2017/12/10/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</loc>
-    <lastmod>2018-05-26T16:39:38.908Z</lastmod>
+    <lastmod>2018-05-26T16:39:38.000Z</lastmod>
     <data>
         <display>
         <title>几种方法实现数组去重</title>
@@ -356,7 +356,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/05/23/css%E5%8F%98%E9%87%8F/</loc>
-    <lastmod>2018-05-26T16:37:53.831Z</lastmod>
+    <lastmod>2018-05-26T16:37:52.000Z</lastmod>
     <data>
         <display>
         <title>css奇淫技巧--变量</title>
@@ -376,7 +376,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/05/15/%E4%B8%80%E4%B8%AA%E5%85%B3%E4%BA%8Efixed%E6%8A%96%E5%8A%A8%E7%9A%84bug/</loc>
-    <lastmod>2018-05-15T12:50:02.188Z</lastmod>
+    <lastmod>2018-05-15T12:50:02.000Z</lastmod>
     <data>
         <display>
         <title>一个关于fixed抖动的bug</title>
@@ -404,7 +404,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/03/21/%E5%B0%81%E8%A3%85%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E7%BC%93%E5%8A%A8%E5%8A%A8%E7%94%BB/</loc>
-    <lastmod>2018-05-13T11:21:15.052Z</lastmod>
+    <lastmod>2018-05-13T11:21:14.000Z</lastmod>
     <data>
         <display>
         <title>封装一个简单的缓动动画</title>
@@ -424,7 +424,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/05/09/node%E5%90%8E%E5%8F%B0cors%E8%B7%A8%E5%9F%9Fpost%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5/</loc>
-    <lastmod>2018-05-13T09:53:55.010Z</lastmod>
+    <lastmod>2018-05-13T09:53:54.000Z</lastmod>
     <data>
         <display>
         <title>node后台cors跨域post请求失败</title>
@@ -446,7 +446,7 @@
     
   <url>
     <loc>http://liuyuannb.com/2018/05/11/%E7%94%B5%E5%95%86%E6%94%BE%E5%A4%A7%E9%95%9Cdemo/</loc>
-    <lastmod>2018-05-12T06:02:05.959Z</lastmod>
+    <lastmod>2018-05-12T06:02:04.000Z</lastmod>
     <data>
         <display>
         <title>电商放大镜demo</title>
