@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="http://p8phnirb4.bkt.clouddn.com/bitbug_favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="http://p8phnirb4.bkt.clouddn.com/bitbug_favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="react,npm," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前沿  最近做项目，遇到一个较多数据展示的一个页面，想有一个数字上下滚动的效果，于是去往上搜了一下，好像并没要基于react的web版这样的三方库 =0=，无赖只能自己实现一个组件，顺便做成一个npm包，之前没有发布过npm包，可能会对NPM对开发有一种蜜汁敬畏，觉得这是一个很高大上的东西。其实，在现在的我看来，npm包就是一个我们平时经常写的一个export出来的模块而已，只不过跟其它业务代码耦">
+<meta name="keywords" content="react,npm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何发布自己的npm包">
+<meta property="og:url" content="http://liuyuannb.com/2019/03/04/如何发布自己的npm包/index.html">
+<meta property="og:site_name" content="刘源的博客">
+<meta property="og:description" content="前沿  最近做项目，遇到一个较多数据展示的一个页面，想有一个数字上下滚动的效果，于是去往上搜了一下，好像并没要基于react的web版这样的三方库 =0=，无赖只能自己实现一个组件，顺便做成一个npm包，之前没有发布过npm包，可能会对NPM对开发有一种蜜汁敬畏，觉得这是一个很高大上的东西。其实，在现在的我看来，npm包就是一个我们平时经常写的一个export出来的模块而已，只不过跟其它业务代码耦">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181217204316178.gif">
+<meta property="og:updated_time" content="2019-03-04T06:36:54.507Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何发布自己的npm包">
+<meta name="twitter:description" content="前沿  最近做项目，遇到一个较多数据展示的一个页面，想有一个数字上下滚动的效果，于是去往上搜了一下，好像并没要基于react的web版这样的三方库 =0=，无赖只能自己实现一个组件，顺便做成一个npm包，之前没有发布过npm包，可能会对NPM对开发有一种蜜汁敬畏，觉得这是一个很高大上的东西。其实，在现在的我看来，npm包就是一个我们平时经常写的一个export出来的模块而已，只不过跟其它业务代码耦">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181217204316178.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://liuyuannb.com/2019/03/04/如何发布自己的npm包/"/>
+
+
+
+
+
+  <title>如何发布自己的npm包 | 刘源的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/liuyuan6088"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">刘源的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习使我快乐，真J2bang！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-留言板">
+          <a href="/board" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://liuyuannb.com/2019/03/04/如何发布自己的npm包/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘源">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pno1etuve.bkt.clouddn.com/avater.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="刘源的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何发布自己的npm包</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-04T13:47:44+08:00">
+                2019-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/npm/" itemprop="url" rel="index">
+                    <span itemprop="name">npm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          <span id="busuanzi_container_page_pv">
+ &nbsp; | &nbsp; 热度&nbsp; <span id="busuanzi_value_page_pv"></span>°C
+ </span>
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2019/03/04/如何发布自己的npm包/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2019/03/04/如何发布自己的npm包/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2019/03/04/如何发布自己的npm包/" class="leancloud_visitors" data-flag-title="如何发布自己的npm包">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前沿"><a href="#前沿" class="headerlink" title="前沿"></a>前沿</h1><p>  最近做项目，遇到一个较多数据展示的一个页面，想有一个数字上下滚动的效果，于是去往上搜了一下，<br>好像并没要基于<code>react</code>的web版这样的三方库 =0=，无赖只能自己实现一个组件，顺便做成一个npm包，<br>之前没有发布过npm包，可能会对NPM对开发有一种蜜汁敬畏，觉得这是一个很高大上的东西。其实，在现在的我看来，npm包就是一个我们平时经常写的一个export出来的模块而已，只不过跟其它业务代码耦合性低，具有较高的独立性。 当然，要发布一个npm包，除了写的模块组件外，还需要做一些基础的包装工作。</p>
+<p><img src="https://img-blog.csdnimg.cn/20181217204316178.gif" alt=""></p>
+<h1 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h1><p>在<code>github</code>上新建一个仓库，名字可以自己取。确保你创建的组件名称没有在 <code>npm</code> 上被使用过，<br>然后克隆项目，初始化：</p>
+<blockquote>
+<p>git clone <a href="https://github.com/xxx/wsm-loading.git" target="_blank" rel="noopener">https://github.com/xxx/wsm-loading.git</a><br>cd wsm-loading<br>npm init</p>
+</blockquote>
+<p>运行npm init问题提示列表可以根据自己的个人爱好填写，也可以采取默认的选项</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">name: (my-npm)</span><br><span class="line">version: (1.0.0)</span><br><span class="line">description: 0.0.1</span><br><span class="line">entry point: (index.js)</span><br><span class="line">test command:</span><br><span class="line">git repository:</span><br><span class="line">keywords:</span><br><span class="line">author: Awe</span><br><span class="line">license: (ISC) MIT</span><br><span class="line">About to write to F:\github\my-npm\package.json:</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;my-npm&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;0.0.1&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;index.js&quot;,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;author&quot;: &quot;Awe&quot;,</span><br><span class="line">  &quot;license&quot;: &quot;MIT&quot;</span><br><span class="line">&#125;</span><br><span class="line">Is this ok? (yes)</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>name：<br>模块名，之后发布之后就可以让用户npm install xxxx来引用你的开源模块了</li>
+<li>version：<br>版本号，语义版本号分为X.Y.Z三位，分别代表主版本号、次版本号和补丁版本号。当代码变更时，版本号按以下原则更新。<ol>
+<li>如果只是修复bug，需要更新Z位。</li>
+<li>如果是新增了功能，但是向下兼容，需要更新Y位。</li>
+<li>如果有大变动，向下不兼容，需要更新X位。</li>
+</ol>
+</li>
+<li>description：<br>简单介绍自己的模块</li>
+<li>main：<br>入口文件，必要，当通过require(‘xxx’)时，是读取main里声明的文件</li>
+<li>test command：<br>测试命令</li>
+<li>git repository：<br>git仓库地址</li>
+<li>keywords：<br>关键词，可以通过npm搜索你填写的关键词找到你的模块</li>
+<li>author：<br>作者信息，可以之后编辑更详细一些</li>
+<li>license（ISC）：<br>代码授权许可 可以参考这里</li>
+</ul>
+<h1 id="安装项目的依赖"><a href="#安装项目的依赖" class="headerlink" title="安装项目的依赖"></a>安装项目的依赖</h1><p>因为是基于react，所以先安装react相关的，或者使用官方脚手架：</p>
+<blockquote>
+<p>npm i react react-dom -D</p>
+</blockquote>
+<p>webpack4构建打包：</p>
+<blockquote>
+<p>npm i webpack webpack-cli webpack-dev-server html-webpack-plugin style-loader css-loader babel-core babel-loader babel-preset-env babel-preset-react -D</p>
+</blockquote>
+<p>这时上面安装的依赖已经被添加到根目录下的 package.json中了，接下来我们添加一个 start的脚本，用于启动我们本地开发的服务器， start如下：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"scripts"</span>: &#123;</span><br><span class="line">  <span class="string">"test"</span>: <span class="string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span>,</span><br><span class="line">  <span class="string">"start"</span>: <span class="string">"webpack-dev-server --mode development"</span>,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></div>
+<p>#开发组件</p>
+<p>目录结构</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">├── examples // 示例代码存放目录</span><br><span class="line">│  └── src</span><br><span class="line">├── node_modules</span><br><span class="line">├── package.json</span><br><span class="line">└── src // 组件源代码和样式存放目录</span><br><span class="line">└── .babelrc // es6及jsx语法编译</span><br><span class="line">└── .gitignore // git提交管理</span><br><span class="line">└── package-lock.json</span><br><span class="line">└── package.json</span><br><span class="line">└── webpack.config.js webpack配置</span><br></pre></td></tr></table></figure></div>
+<p>关键的组件代码，思路是组件接受两个属性，一个是需要展示的数字，一个是类型，当前后的数字不一样，将执行滚动动画，<code>type</code>类型有3种：普通数字，金额，百分比，不同类型需做不同的格式化。而关键的上下滚动效果，思路是每一个数字都是是个列表项，每个列表包含0-9上下排列的子元素，但每个列表项的可视窗口只有一个子元素的高度，通过定位的top属性去滚动数字，已到达数字上下滚动的效果（最开始用的是css的过度实现，但发现当距离过短，比如1-2，1-3的变化，动画不流畅，所以又使用咯requestAnimationFrame实现，但还是有点问题是时间不能统一，而且不能像贝塞尔曲线那般好控制，后续会针对这个在改改吧）</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"./index.scss"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> PERCENT = <span class="string">'%'</span>;</span><br><span class="line"><span class="keyword">const</span> MONEY = <span class="string">'元'</span>;</span><br><span class="line"><span class="keyword">const</span> format = <span class="function"><span class="params">num</span> =&gt;</span> <span class="built_in">String</span>(num).split(<span class="string">''</span>).filter(<span class="function"><span class="params">e</span> =&gt;</span> /^[<span class="number">0</span><span class="number">-9</span>]*$/.test(<span class="built_in">String</span>(e)));</span><br><span class="line"><span class="keyword">const</span> spanNode = <span class="built_in">Array</span>.from(&#123; <span class="attr">length</span>: <span class="number">10</span> &#125;, (_, k) =&gt; k).map(<span class="function"><span class="params">e</span> =&gt;</span> &lt;span key=&#123;e&#125;&gt;&#123;e&#125;&lt;<span class="regexp">/span&gt;);</span></span><br><span class="line"><span class="regexp">const keeyDecimal = (num, n = 2) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  let res = parseFloat(num);</span></span><br><span class="line"><span class="regexp">  if (!res) return 0;</span></span><br><span class="line"><span class="regexp">  res = Math.round(num * 10**n) /</span> <span class="number">10</span>**n;</span><br><span class="line">  <span class="keyword">let</span> x = res.toString();</span><br><span class="line">  <span class="keyword">let</span> pos = x.indexOf(<span class="string">'.'</span>);</span><br><span class="line">  <span class="keyword">if</span> (pos &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    pos = x.length;</span><br><span class="line">    x += <span class="string">'.'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> (x.length &lt;= pos + n) &#123;</span><br><span class="line">    x += <span class="string">'0'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> toMoney = <span class="function"><span class="params">num</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> numArr = <span class="built_in">String</span>(num).split(<span class="string">''</span>);</span><br><span class="line">  <span class="keyword">const</span> pos = numArr.findIndex(<span class="function"><span class="params">v</span> =&gt;</span> v === <span class="string">'.'</span>);</span><br><span class="line">  <span class="keyword">const</span> after = pos &gt;= <span class="number">0</span> ? numArr.slice(pos, numArr.length) : [];</span><br><span class="line">  <span class="keyword">const</span> arr = pos &gt;= <span class="number">0</span> ? numArr.slice(<span class="number">0</span>, pos) : numArr;</span><br><span class="line">  <span class="keyword">let</span> res = [];</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = arr.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">    count ++;</span><br><span class="line">    res.unshift(arr[i]);</span><br><span class="line">    <span class="keyword">if</span> (count % <span class="number">3</span> === <span class="number">0</span> &amp;&amp; i !== <span class="number">0</span>) res.unshift(<span class="string">','</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res.concat(after).join(<span class="string">''</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> fn = <span class="function">(<span class="params">num, type = <span class="string">'num'</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (type === <span class="string">'percent'</span>) <span class="keyword">return</span> +keeyDecimal(num);</span><br><span class="line">  <span class="keyword">if</span> (type === <span class="string">'money'</span>) <span class="keyword">return</span> toMoney(keeyDecimal(num));</span><br><span class="line">  <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">CountUp</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">PureComponent</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      start: fn(props.start, props.type) || <span class="number">0</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.animation = <span class="keyword">this</span>.animation.bind(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">this</span>.renderLi = <span class="keyword">this</span>.renderLi.bind(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  componentDidMount()&#123;</span><br><span class="line">    <span class="keyword">this</span>.animation();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> getDerivedStateFromProps(nextProps, preState) &#123;</span><br><span class="line">    <span class="keyword">if</span> (nextProps.start !== preState.start) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        start: fn(nextProps.start, nextProps.type),</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  componentDidUpdate() &#123;</span><br><span class="line">    <span class="keyword">this</span>.animation();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  animation() &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; start &#125; = <span class="keyword">this</span>.state;</span><br><span class="line">    <span class="keyword">const</span> height = <span class="keyword">this</span>.countUp.offsetHeight;</span><br><span class="line">    <span class="keyword">const</span> liNode = <span class="keyword">this</span>.countUp.getElementsByClassName(<span class="string">'num-li'</span>);</span><br><span class="line">    <span class="built_in">Array</span>.from(liNode).forEach(<span class="function">(<span class="params">e,i</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> timer = <span class="literal">null</span>;</span><br><span class="line">      e.dataset.value = format(start)[i];</span><br><span class="line">      <span class="comment">// e.style.top = `-$&#123;format(start)[i]*height&#125;px`;</span></span><br><span class="line">      cancelAnimationFrame(timer);</span><br><span class="line">      <span class="keyword">const</span> end = -format(start)[i]*height;</span><br><span class="line">      <span class="keyword">const</span> fn = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> current = <span class="built_in">parseFloat</span>(e.style.top);</span><br><span class="line">        <span class="keyword">let</span> step = (end - current) / <span class="number">15</span>;</span><br><span class="line">        step = step &gt; <span class="number">0</span> ? <span class="built_in">Math</span>.ceil(step) : <span class="built_in">Math</span>.floor(step);</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Math</span>.abs(step) &gt;= <span class="built_in">Math</span>.abs(current - end)) &#123;</span><br><span class="line">          e.style.top = <span class="string">`<span class="subst">$&#123;end&#125;</span>px`</span>;</span><br><span class="line">          cancelAnimationFrame(timer);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          e.style.top = <span class="string">`<span class="subst">$&#123;current + step&#125;</span>px`</span>;</span><br><span class="line">          timer = requestAnimationFrame(fn);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;;</span><br><span class="line">      timer = requestAnimationFrame(fn);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  renderLi() &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; start &#125; = <span class="keyword">this</span>.state;</span><br><span class="line">    <span class="keyword">const</span> &#123; type &#125; = <span class="keyword">this</span>.props</span><br><span class="line">    <span class="keyword">if</span> (type === <span class="string">'percent'</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        <span class="built_in">String</span>(start).split(<span class="string">''</span>).map(<span class="function">(<span class="params">e,i</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (<span class="regexp">/^[0-9]*$/</span>.test(<span class="built_in">String</span>(e))) &#123;</span><br><span class="line">            <span class="keyword">return</span> (</span><br><span class="line">              &lt;li className=<span class="string">'num-li'</span> style=&#123;&#123; <span class="attr">top</span>: <span class="number">0</span> &#125;&#125; data-value=&#123;<span class="number">0</span>&#125; key=&#123;<span class="string">`<span class="subst">$&#123;e&#125;</span><span class="subst">$&#123;i&#125;</span>`</span>&#125;&gt;</span><br><span class="line">                &#123; spanNode &#125;</span><br><span class="line">              &lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">            )</span></span><br><span class="line"><span class="regexp">          &#125;</span></span><br><span class="line"><span class="regexp">          return (</span></span><br><span class="line"><span class="regexp">            &lt;li style=&#123;&#123; top: 0 &#125;&#125; data-value=&#123;0&#125; key=&#123;`$&#123;e&#125;$&#123;i&#125;`&#125;&gt;&lt;span&gt;&#123;e&#125;&lt;/</span>span&gt;&lt;/li&gt;</span><br><span class="line">          )</span><br><span class="line">        &#125;).concat([</span><br><span class="line">          &lt;li style=&#123;&#123; <span class="attr">top</span>: <span class="number">0</span> &#125;&#125; data-value=&#123;<span class="number">0</span>&#125; key=&#123;PERCENT&#125;&gt;&lt;span&gt;&#123;PERCENT&#125;&lt;/span&gt;&lt;/li&gt;</span><br><span class="line">        ])</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (type === <span class="string">'money'</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        <span class="built_in">String</span>(start).split(<span class="string">''</span>).map(<span class="function">(<span class="params">e,i</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (<span class="regexp">/^[0-9]*$/</span>.test(<span class="built_in">String</span>(e))) &#123;</span><br><span class="line">            <span class="keyword">return</span> (</span><br><span class="line">              &lt;li className=<span class="string">'num-li'</span> style=&#123;&#123; <span class="attr">top</span>: <span class="number">0</span> &#125;&#125; data-value=&#123;<span class="number">0</span>&#125; key=&#123;<span class="string">`<span class="subst">$&#123;e&#125;</span><span class="subst">$&#123;i&#125;</span>`</span>&#125;&gt;</span><br><span class="line">                &#123; spanNode &#125;</span><br><span class="line">              &lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">            )</span></span><br><span class="line"><span class="regexp">          &#125;</span></span><br><span class="line"><span class="regexp">          return (</span></span><br><span class="line"><span class="regexp">            &lt;li style=&#123;&#123; top: 0 &#125;&#125; data-value=&#123;0&#125; key=&#123;`$&#123;e&#125;$&#123;i&#125;`&#125;&gt;&lt;span style=&#123;&#123; fontFamily: 'PingFang SC' &#125;&#125;&gt;&#123;e&#125;&lt;/</span>span&gt;&lt;/li&gt;</span><br><span class="line">          )</span><br><span class="line">        &#125;).concat([</span><br><span class="line">          &lt;li style=&#123;&#123; <span class="attr">top</span>: <span class="number">0</span> &#125;&#125; data-value=&#123;<span class="number">0</span>&#125; key=&#123;MONEY&#125;&gt;&lt;span&gt;&#123;MONEY&#125;&lt;/span&gt;&lt;/li&gt;</span><br><span class="line">        ])</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> format(start).map(<span class="function">(<span class="params">e,i</span>) =&gt;</span> (</span><br><span class="line">      &lt;li className=<span class="string">'num-li'</span> style=&#123;&#123; <span class="attr">top</span>: <span class="number">0</span> &#125;&#125; data-value=&#123;<span class="number">0</span>&#125; key=&#123;<span class="string">`<span class="subst">$&#123;e&#125;</span><span class="subst">$&#123;i&#125;</span>`</span>&#125;&gt;</span><br><span class="line">        &#123; spanNode &#125;</span><br><span class="line">      &lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">    ))</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  render() &#123;</span></span><br><span class="line"><span class="regexp">    return (</span></span><br><span class="line"><span class="regexp">      &lt;ul ref=&#123;e =&gt; this.countUp = e&#125; className=&#123;'countUp'&#125;&gt;</span></span><br><span class="line"><span class="regexp">        &#123; this.renderLi() &#125;</span></span><br><span class="line"><span class="regexp">      &lt;/u</span>l&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>接下来我们添加一个演示demo</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*** examples/src/index.html ***/</span></span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line"> &lt;title&gt;My Component Demo&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp"> &lt;meta charset="utf-8"&gt;</span></span><br><span class="line"><span class="regexp"> &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"> &lt;div id=<span class="string">"root"</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>html&gt;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*** examples/src/index.js ***/</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; render&#125; <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> MyComponent <span class="keyword">from</span> <span class="string">'../../src'</span>;</span><br><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line"> &lt;MyComponent size=<span class="string">'36'</span> color=<span class="string">'red'</span> /&gt;</span><br><span class="line">);</span><br><span class="line">render(&lt;App /&gt;, document.getElementById("root"));</span><br></pre></td></tr></table></figure></div>
+<p>#配置webpack</p>
+<p>接下来配置 webpack, 在项目根路径下创建 webpack.config.js文件</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">"html-webpack-plugin"</span>);</span><br><span class="line"><span class="keyword">const</span> htmlWebpackPlugin = <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">  template: path.join(__dirname, <span class="string">"examples/src/index.html"</span>),</span><br><span class="line">  filename: <span class="string">"./index.html"</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: path.join(__dirname, <span class="string">"examples/src/index.js"</span>),</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.join(__dirname, <span class="string">"examples/dist"</span>),</span><br><span class="line">    filename: <span class="string">"bundle.js"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.(js|jsx)$/</span>,</span><br><span class="line">        use: <span class="string">"babel-loader"</span>,</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        use: [<span class="string">"style-loader"</span>, <span class="string">"css-loader"</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.scss$/</span>,</span><br><span class="line">        use: [<span class="string">"style-loader"</span>, <span class="string">"css-loader"</span>, <span class="string">"sass-loader"</span>]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [htmlWebpackPlugin],</span><br><span class="line">  resolve: &#123;</span><br><span class="line">    extensions: [<span class="string">".js"</span>, <span class="string">".jsx"</span>]</span><br><span class="line">  &#125;,</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    port: <span class="number">3001</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
+<p>#配置babelrc</p>
+<p>最后需要指定 Babel 需要对哪些文件进行编译，毫无疑问 React 中使用的 JSX 文件需要被编译，让它转换成被主流浏览器都支持的 ES5 ,通用的配置也很简单，只需要添加一对 presets,在项目根目录下添加文件.babelrc</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="JAVASCRIPT"><figure class="iseeu highlight /javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"> <span class="string">"presets"</span>: [<span class="string">"env"</span>, <span class="string">"react"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>#发布到npm上</p>
+<p>我们要发布被 babel 编译且被压缩后的版本，要让没有使用 babel 的项目也能够正常的使用，比如不能出现 JSX 语法。 首先需要安装 babel cli</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i babel-cli -D</span><br></pre></td></tr></table></figure></div>
+<p>现在我们添加 transpile脚本，以便使用 Babel 编译我们的源代码，同时拷贝一些静态文件(如：css 文件)到目标打包目录dist下 同时指定被编译后的版本为组件的主入口，更改后的 package.json如下</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;,</span><br><span class="line">  &quot;start&quot;: &quot;webpack-dev-server --mode development&quot;,</span><br><span class="line">  &quot;transpile&quot;: &quot;babel src -d dist --copy-files&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run transpile</span><br></pre></td></tr></table></figure></div>
+<p>最后让我们在项目的根目录下添加.npmignore文件，告诉 npm，我们项目中哪些文件和文件夹是在发布的包中被忽略掉的</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># .npmignore </span><br><span class="line">src</span><br><span class="line">examples</span><br><span class="line">.babelrc</span><br><span class="line">.gitignore</span><br><span class="line">webpack.config.js</span><br></pre></td></tr></table></figure></div>
+<p>发布我们的组件到 npm 上</p>
+<p>提交npm之前需要去npm上开通自己的账号，并验证邮箱，这样才能正常的提交上去。在终端使用npm login登陆自己的信息</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish</span><br></pre></td></tr></table></figure></div>
+<p>如果要修改版本，直接修改version字段，在发布就好了</p>
+<p>其他npm命令</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">npm update </span><br><span class="line">//可以把当前目录下node_modules子目录里边的对应模块更新至最新版本。</span><br><span class="line"></span><br><span class="line">npm cache clear</span><br><span class="line">//可以清空NPM本地缓存，用于对付使用相同版本号发布新版本代码的人。</span><br><span class="line"></span><br><span class="line">npm unpublish @</span><br><span class="line"></span><br><span class="line">//可以撤销发布自己发布过的某个版本代码。</span><br></pre></td></tr></table></figure></div>
+<p>#将代码上传到git</p>
+<p>项目上传到git之前，我们需要配置下.gitignore，在项目的根目录下添加.npmignore文件</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true"data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># .gitignore</span><br><span class="line">node_modules</span><br><span class="line">dist</span><br></pre></td></tr></table></figure></div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>小生磕头感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/react/" rel="tag"><i class="fa fa-tag"></i> react</a>
+          
+            <a href="/tags/npm/" rel="tag"><i class="fa fa-tag"></i> npm</a>
+          
+        </div>
+      
+
+    
+        <div class="copyright" style="clear:both;">
+           <p><span>本文标题:</span><a href="/2019/03/04/如何发布自己的npm包/">如何发布自己的npm包</a></p>
+           <p><span>文章作者:</span><a href="/" title="访问 刘源 的个人博客">刘源</a></p>
+           <p><span>原始链接:</span><a href="/2019/03/04/如何发布自己的npm包/" title="如何发布自己的npm包">http://liuyuannb.com/2019/03/04/如何发布自己的npm包/</a></p>
+           <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" title="Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)">Attribution-NonCommercial 4.0</a></p>
+           <p><span>若转载，请留以上信息，谢谢合作</span></p>
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/01/es6代理/" rel="next" title="es6代理 defineProperty 与 proxy">
+                <i class="fa fa-chevron-left"></i> es6代理 defineProperty 与 proxy
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://pno1etuve.bkt.clouddn.com/avater.jpeg"
+                alt="刘源" />
+            
+              <p class="site-author-name" itemprop="name">刘源</p>
+              <p class="site-description motion-element" itemprop="description">技术和生活，我融为一体。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/liuyuan6088" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://twitter.com" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://blog.csdn.net" target="_blank" title="csdn">
+                      
+                        <i class="fa fa-fw fa-crosshairs"></i>csdn</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.imooc.com/" title="慕课网" target="_blank">慕课网</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://cn.vuejs.org/v2/api/" title="vue" target="_blank">vue</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前沿"><span class="nav-number">1.</span> <span class="nav-text">前沿</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建仓库"><span class="nav-number">2.</span> <span class="nav-text">创建仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装项目的依赖"><span class="nav-number">3.</span> <span class="nav-text">安装项目的依赖</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘源</span>
+
+  
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+  <span>欢迎您的到来</span>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytC7RHU8';
+      var conf = '7cd0b3d5cdff777b5ebc65a1340c4a09';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KmzKeieM80Shp1zRzh3541wM-gzGzoHsz", "rhp2TmnkxPuq6oxcLAITqprh");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/"});</script></body>
+</html>
+<!-- 页面点击小红心undefined -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script type="text/javascript" src="/js/src/myly.js"></script>
